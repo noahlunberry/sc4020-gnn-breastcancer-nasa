@@ -40,9 +40,9 @@ setting_names = ['setting_1', 'setting_2', 'setting_3']
 sensor_names = ['s_{}'.format(i+1) for i in range(0,21)]
 col_names = index_names + setting_names + sensor_names
 
-dftrain = pd.read_csv('archive/CMaps/train_FD001.txt',sep='\s+',header=None,index_col=False,names=col_names)
-dfvalid = pd.read_csv('archive/CMaps/test_FD001.txt',sep='\s+',header=None,index_col=False,names=col_names)
-y_valid = pd.read_csv('archive/CMaps/RUL_FD001.txt',sep='\s+',header=None,index_col=False,names=['RUL'])
+dftrain = pd.read_csv('NASA_data/train_FD001.txt',sep='\s+',header=None,index_col=False,names=col_names)
+dfvalid = pd.read_csv('NASA_data/test_FD001.txt',sep='\s+',header=None,index_col=False,names=col_names)
+y_valid = pd.read_csv('NASA_data/RUL_FD001.txt',sep='\s+',header=None,index_col=False,names=['RUL'])
 
 
 
