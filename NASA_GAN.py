@@ -33,6 +33,25 @@ class GCN(torch.nn.Module):
         x = self.conv1(x, edge_index).relu()
         x = self.conv2(x, edge_index)
         return x
+    
+def adapt_data_input(dataframe):
+    index_last = 0
+    current_engine = 1
+    for i in range(dataframe.shape[0]):
+        if i < dataframe.shape[0] - 10:
+            if dataframe.iloc[i + 1, 0] > current_engine:
+                current_engine += 1
+                max_cycles = dataframe.iloc[i, 1]
+                for j in range(index_last, i + 1):
+                    dataframe.iloc[j, 1] = max_cycles - dataframe.iloc[j, 1]
+                index_last = i + 1
+        if i + 1 == dataframe.shape[0]:
+            max_cycles = dataframe.iloc[i, 1]
+            for j in range(index_last, i + 1):
+                dataframe.iloc[j, 1] = max_cycles - dataframe.iloc[j, 1]
+            index_last = i + 1
+    return dataframe
+    
 
 
 index_names = ['unit_number', 'time_cycles']
@@ -44,42 +63,29 @@ dftrain = pd.read_csv('archive/CMaps/train_FD001.txt',sep='\s+',header=None,inde
 dfvalid = pd.read_csv('archive/CMaps/test_FD001.txt',sep='\s+',header=None,index_col=False,names=col_names)
 y_valid = pd.read_csv('archive/CMaps/RUL_FD001.txt',sep='\s+',header=None,index_col=False,names=['RUL'])
 
+dftrain = adapt_data_input(dftrain)
+dfvalid = adapt_data_input(dfvalid)
 
 
 
-index_last = 0
-current_engine= 1
-for i in range(dftrain.shape[0]):
-    if i<dftrain.shape[0]-10:
-        if dftrain.iloc[i+1,0]>current_engine:
-            current_engine +=1
-            max_cycles = dftrain.iloc[i,1]
-            for j in range(index_last,i+1):
-                dftrain.iloc[j,1] = max_cycles - dftrain.iloc[j,1]
-            index_last = i+1
-    if i+1==dftrain.shape[0]:
-        max_cycles = dftrain.iloc[i, 1]
-        for j in range(index_last, i + 1):
-            dftrain.iloc[j, 1] = max_cycles - dftrain.iloc[j, 1]
-        index_last = i + 1
 y_train = torch.tensor(dftrain.iloc[:,1],dtype=torch.float32)
-x_train = torch.tensor(dftrain.iloc[:,2:].to_numpy(),dtype=torch.float32)
 y_train = y_train.unsqueeze(1)
+x_train = torch.tensor(dftrain.iloc[:,2:].to_numpy(),dtype=torch.float32)
 
-y_valid = torch.tensor(y_valid.iloc[:,0].to_numpy(),dtype=torch.float32)
+y_valid = torch.tensor(dfvalid.iloc[:,1],dtype=torch.float32)
 x_valid = torch.tensor(dfvalid.iloc[:,2:].to_numpy(),dtype=torch.float32)
 
 
 
 model_GAN = GAN(in_channels=24, hidden_channels=256, out_channels=1)
-model_NN = torch.nn.Sequential(torch.nn.Linear(24,128),
-                               torch.nn.ReLU(),torch.nn.Linear(128,1))
+model_NN = torch.nn.Sequential(torch.nn.Linear(24,256),
+                               torch.nn.LeakyReLU(),torch.nn.Linear(256,1))
 
 loss_fn = torch.nn.MSELoss()
 optimizer = torch.optim.Adam(model_NN.parameters(), lr=0.001)
 
 print("training started")
-for epoch in range(10000):
+for epoch in range(15000):
     pred = model_NN(x_train)
     loss = loss_fn(pred, y_train)
     optimizer.zero_grad()
@@ -89,9 +95,14 @@ for epoch in range(10000):
         print(epoch, loss.item()/x_train.size(0))
 
 
-pred = model_NN(x_valid)
-loss = loss_fn(pred, y_valid)
+pred = model_NN(x_train)
+loss = loss_fn(pred, y_train)
 print(loss.item())
+for i in range(pred.shape[0]):
+    print(pred[i]-y_train[i])
+
+
+
 breakpoint()
 
 
