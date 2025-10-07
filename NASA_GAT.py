@@ -4,7 +4,7 @@ import torch_geometric as tgeo
 import pandas as pd
 
 
-class GAN(torch.nn.Module):
+class GAT(torch.nn.Module):
     def __init__(self, in_channels, hidden_channels, out_channels):
         super().__init__()
         self.conv1 = tgeo.nn.GCNConv(in_channels, hidden_channels)
@@ -33,25 +33,6 @@ class GCN(torch.nn.Module):
         x = self.conv1(x, edge_index).relu()
         x = self.conv2(x, edge_index)
         return x
-    
-def adapt_data_input(dataframe):
-    index_last = 0
-    current_engine = 1
-    for i in range(dataframe.shape[0]):
-        if i < dataframe.shape[0] - 10:
-            if dataframe.iloc[i + 1, 0] > current_engine:
-                current_engine += 1
-                max_cycles = dataframe.iloc[i, 1]
-                for j in range(index_last, i + 1):
-                    dataframe.iloc[j, 1] = max_cycles - dataframe.iloc[j, 1]
-                index_last = i + 1
-        if i + 1 == dataframe.shape[0]:
-            max_cycles = dataframe.iloc[i, 1]
-            for j in range(index_last, i + 1):
-                dataframe.iloc[j, 1] = max_cycles - dataframe.iloc[j, 1]
-            index_last = i + 1
-    return dataframe
-    
 
 
 index_names = ['unit_number', 'time_cycles']
@@ -59,33 +40,46 @@ setting_names = ['setting_1', 'setting_2', 'setting_3']
 sensor_names = ['s_{}'.format(i+1) for i in range(0,21)]
 col_names = index_names + setting_names + sensor_names
 
-dftrain = pd.read_csv('archive/CMaps/train_FD001.txt',sep='\s+',header=None,index_col=False,names=col_names)
-dfvalid = pd.read_csv('archive/CMaps/test_FD001.txt',sep='\s+',header=None,index_col=False,names=col_names)
-y_valid = pd.read_csv('archive/CMaps/RUL_FD001.txt',sep='\s+',header=None,index_col=False,names=['RUL'])
-
-dftrain = adapt_data_input(dftrain)
-dfvalid = adapt_data_input(dfvalid)
+dftrain = pd.read_csv('NASA_data/train_FD001.txt',sep='\s+',header=None,index_col=False,names=col_names)
+dfvalid = pd.read_csv('NASA_data/test_FD001.txt',sep='\s+',header=None,index_col=False,names=col_names)
+y_valid = pd.read_csv('NASA_data/RUL_FD001.txt',sep='\s+',header=None,index_col=False,names=['RUL'])
 
 
 
+
+index_last = 0
+current_engine= 1
+for i in range(dftrain.shape[0]):
+    if i<dftrain.shape[0]-10:
+        if dftrain.iloc[i+1,0]>current_engine:
+            current_engine +=1
+            max_cycles = dftrain.iloc[i,1]
+            for j in range(index_last,i+1):
+                dftrain.iloc[j,1] = max_cycles - dftrain.iloc[j,1]
+            index_last = i+1
+    if i+1==dftrain.shape[0]:
+        max_cycles = dftrain.iloc[i, 1]
+        for j in range(index_last, i + 1):
+            dftrain.iloc[j, 1] = max_cycles - dftrain.iloc[j, 1]
+        index_last = i + 1
 y_train = torch.tensor(dftrain.iloc[:,1],dtype=torch.float32)
-y_train = y_train.unsqueeze(1)
 x_train = torch.tensor(dftrain.iloc[:,2:].to_numpy(),dtype=torch.float32)
+y_train = y_train.unsqueeze(1)
 
-y_valid = torch.tensor(dfvalid.iloc[:,1],dtype=torch.float32)
+y_valid = torch.tensor(y_valid.iloc[:,0].to_numpy(),dtype=torch.float32)
 x_valid = torch.tensor(dfvalid.iloc[:,2:].to_numpy(),dtype=torch.float32)
 
 
 
-model_GAN = GAN(in_channels=24, hidden_channels=256, out_channels=1)
-model_NN = torch.nn.Sequential(torch.nn.Linear(24,256),
-                               torch.nn.LeakyReLU(),torch.nn.Linear(256,1))
+model_GAT = GAT(in_channels=24, hidden_channels=256, out_channels=1)
+model_NN = torch.nn.Sequential(torch.nn.Linear(24,128),
+                               torch.nn.ReLU(),torch.nn.Linear(128,1))
 
 loss_fn = torch.nn.MSELoss()
 optimizer = torch.optim.Adam(model_NN.parameters(), lr=0.001)
 
 print("training started")
-for epoch in range(15000):
+for epoch in range(10000):
     pred = model_NN(x_train)
     loss = loss_fn(pred, y_train)
     optimizer.zero_grad()
@@ -95,21 +89,16 @@ for epoch in range(15000):
         print(epoch, loss.item()/x_train.size(0))
 
 
-pred = model_NN(x_train)
-loss = loss_fn(pred, y_train)
+pred = model_NN(x_valid)
+loss = loss_fn(pred, y_valid)
 print(loss.item())
-for i in range(pred.shape[0]):
-    print(pred[i]-y_train[i])
-
-
-
 breakpoint()
 
 
 
 
 for epoch in range(200):
-    pred = model_GAN(x_train, data.edge_index)
+    pred = model_GAT(x_train, data.edge_index)
     loss = torch.cross_entropy(pred[data.train_mask], data.y[data.train_mask])
 
     # Backpropagation

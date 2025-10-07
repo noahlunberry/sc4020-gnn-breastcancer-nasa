@@ -1,0 +1,142 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx} % Required for inserting images
+\graphicspath{images/} % Direct to "images" folder
+\usepackage{conveniences}
+\usepackage{geometry}
+\usepackage{ragged2e}
+\usepackage{amssymb}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage[titles]{tocloft}  % Allows customization of ToC layout
+\usepackage{etoolbox}
+\usepackage{comment}
+
+\titleformat{\section}
+    {\centering\fontS{18}\bfseries} %Centered, Font 18, Bold
+    {\thesection} %No numbering
+    {0.5em} %No extra space
+    {} %No extra formatting
+    [\vspace{20pt}\titlerule\vspace{10pt}]
+
+\begin{document}
+\begin{center}
+    \includegraphics[width=\linewidth]{NTU_Logo.png}
+    \\[1cm]
+    \fontS{20}
+    \underline{\textbf{SC4020 Data Analytics and Mining}}
+    \\[1.5em]
+    \fontS{14}
+    Academic Year 2025/2026
+    \\[1em]
+    Semester 1
+    \\[2em]
+    Group 18
+    \\[5em]
+    \textbf{
+        LUNBERRY NOAH IWATA (N2503869H) \\[1em]
+        PIKERINGA ANTONINA DAILA (N2504101A) \\[1em]
+        RAHLFS FREDERIC MAURITZ (N2504096K) \\[1em]
+        SARAH EMILY ONG XIN WEI (U2440124G) \\[1em]
+        }
+\end{center}
+\pagebreak
+
+\justifying
+
+\pagestyle{fancy}
+\fancyhf{}  % Clear default header/footer
+\fancyhead[R]{\textcolor{gray}{\nouppercase{\leftmark}}}   % Left header shows current section title
+\fancyfoot[C]{\thepage}  % Footer center shows page number
+
+\pagenumbering{roman}
+
+\section*{Abstract}
+\markboth{Abstract}{} 
+\addcontentsline{toc}{section}{Abstract} 
+
+There is nothing wrong with second place.
+Your best effort is all that anyone's asking for.
+And if you give your best and you come in second, you come in third, you come in last, it's not about winning or losing.
+It's about giving it everything you've got.
+Now, Sam has built a monument to devilry and chaos.
+I deserve second place, I came in second.
+The only crime that's been committed here is that Oscar and Ally deserve first.
+We should be applauding them for getting more points.
+But in this sick rodeo, this bizarre \textit{fucked up} clown festival that Sam's put together, we're here celebrating what I can only describe as the sickness at the core of America.
+And I'm gonna get him, I'm gonna get Sam.
+
+\pagebreak
+\renewcommand{\cftdotsep}{0.5}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\contentsname}{Table of Contents}  % Set ToC title text
+\setlength{\cftbeforesecskip}{10pt}   % Space before sections
+\setlength{\cftbeforesubsecskip}{10pt} % Space before subsections
+\setlength{\cftbeforesubsubsecskip}{10pt} % Space before subsections
+\renewcommand{\cftsecpresnum}{Chapter~} % Adds "Chapter" before section number
+\renewcommand{\cftsecaftersnum}{\quad} 
+\setlength{\cftsecnumwidth}{6.1em}   %hardcoded in, will die if you have double digit chapters
+%\renewcommand{\numberline}[1]{Chapter #1\quad} %old code, works as well but add Chapter to the subsections too which is L
+\tableofcontents
+
+\pagebreak
+\pagenumbering{arabic}
+\section{Introduction}
+
+\subsection{Motivation for Research}
+
+This research was motivated by the 4AUs it carries (not worth it)
+
+\subsection{Objectives}
+
+\subsection{Scope of Work}
+
+\subsection{Organisation of Report}
+
+\pagebreak
+\section{Methods}
+
+\subsection{Heading} %obviously change these
+
+\subsubsection{Sub Heading}
+
+\subsection{Research Gaps}
+
+\pagebreak
+\section{Experiments}
+
+\subsection{Independent Parameters}
+
+\subsection{Dependent Parameters}
+
+\subsection{Scope of Investigation}
+
+\pagebreak
+\section{Conclusion}
+
+\subsection{Heading}
+
+\pagebreak
+\section*{List of References}
+\pagenumbering{arabic}
+\renewcommand{\thepage}{R-\arabic{page}}
+\markboth{List of References}{} 
+\addcontentsline{toc}{section}{List of References}
+
+\begin{comment}
+    \pagebreak
+    \section*{Appendix A - Heading}
+    \pagenumbering{arabic}
+    \markboth{Appendix A - Heading}{} 
+    \renewcommand{\thepage}{A-\arabic{page}}
+    \addcontentsline{toc}{section}{Appendix A - Heading}
+
+    \pagebreak
+    \section*{Appendix B - Heading}
+    \pagenumbering{arabic}
+    \markboth{Appendix B - Heading}{} 
+    \renewcommand{\thepage}{B-\arabic{page}}
+    \addcontentsline{toc}{section}{Appendix B - Heading}
+\end{comment}
+
+\end{document}
