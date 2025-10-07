@@ -95,12 +95,21 @@ This research was motivated by the 4AUs it carries (not worth it)
 
 \pagebreak
 \section{Methods}
+In order to accurately asseess the capability of two different graph networks, two diverese datasets were chosen. The two models were trained on each and evaluated.
 
-\subsection{Heading} %obviously change these
+\subsection{Datasets} %obviously change these
+The two datasets used were the NASA Turbofan Jet Engine and the UCI Wisconsin Breast Cancer Dataset \todo{add citations or figure out where from}. These were chosen to reflect two real-world applicable issues and in order to hava a diverse trainingset, to no introduce inherent bias into the method.
+The breast cancer dataset consisted of 32 columns of which two were ID and Diagnosis respectively. The other were measurable characteristics of the tumor. The target variable is the classification and diagnosis.
 
-\subsubsection{Sub Heading}
+The Nasa turbofan jet engine dataset consisted 24 characteristic columns, including 3 operational states and 24 sensor measurements. Additionally, the id of the engine and the current cycles of use is given. The target value is the remaining useful life, which is the amount of cycles to the last entry in the dataset of that specific engine. Afterwards the engine broke.
 
-\subsection{Research Gaps}
+Both datasets are inherently different, both in type of data, as well as domain of data. This was done to ensure results without additional bias.
+
+In order to prepare for training, the data was normalized for each characteristic. The Nasa dataset already was split into trainig and validation, with 100 engines being used for training and the same number for validation.
+
+\subsubsection{Models}
+
+\subsection{Training, Inferene and Evaluation}
 
 \pagebreak
 \section{Experiments}
