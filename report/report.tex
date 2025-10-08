@@ -121,7 +121,47 @@ For the breast cancer dataset, nodes corresponded to patient samples, while the 
 For the turbofan dataset, nodes represented sensor states and operational conditions. Edges were defined through feature correlations. The GCN then predicted the Remaining Useful Life (RUL)
 as a regression task.
 
+\section{Results}
+\subsection{Breast cancer dataset}
 
+
+\subsection{NASA turbofan jet engine dataset}
+\subsubsection{GCN model}
+The results of the GCN model on the NASA turbofan jet engine dataset vary: \autoref{fig_NASA_GCN_eng6} is an example of a good fit of data, with the predictions well aligned with the true values. Other than some small spikes in the data, the overall downward slope is roughly accurate. \autoref{fig_NASA_GCN_eng4} shows an example of slight bias, with the slope of the predicted values being mostly correct but all predicted values being shifted upwards of the actual values by the same amount. \autoref{fig_NASA_GCN_eng2} and \autoref{fig_NASA_GCN_eng3} show moderate and high levels of bias respectively. Again, the slope of the predicted values is mostly accurate, but all predicted values are vertically shifted from true values. Interestingly, the example with the most bias (\autoref{fig_NASA_GCN_eng3}) has a much smoother slope than the examples with less bias. 
+
+\begin{figure}[H]
+    \centering
+
+    \begin{subcaptionbox}{Good fit\label{fig_NASA_GCN_eng6}}[0.45\textwidth]
+        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GCN_eng6.png}}
+    \end{subcaptionbox}
+    \hfill
+    \begin{subcaptionbox}{Slight bias\label{fig_NASA_GCN_eng4}}[0.45\textwidth]
+        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GCN_eng4.png}}
+    \end{subcaptionbox}
+
+    \vspace{0.5cm}
+
+    \begin{subcaptionbox}{Moderate bias\label{fig_NASA_GCN_eng2}}[0.45\textwidth]
+        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GCN_eng2.png}}
+    \end{subcaptionbox}
+    \hfill
+    \begin{subcaptionbox}{High bias\label{fig_NASA_GCN_eng3}}[0.45\textwidth]
+        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GAT_eng3.png}}
+    \end{subcaptionbox}
+
+    \caption{GCN model on NASA data}
+    \label{GCN_NASA_all}
+\end{figure}
+
+
+\subsubsection{GAT model}
+
+The results of the GAT model on the NASA turbofan jet engine dataset follow a similar trend those of the GCN model. Instances of good fits (\autoref{fig_NASA_GAT_eng6}), slight bias (\autoref{fig_NASA_GAT_eng4}), moderate bias (\autoref{fig_NASA_GAT_eng2}), and high bias (\autoref{fig_NASA_GAT_eng3}) can be found. The GAT model also has small spikes in the predicted values, but overall the slopes of the predicted values are accurate.
+
+
+\begin{figure}[H]
+    \centering
 
     \begin{subcaptionbox}{Good fit\label{fig_NASA_GAT_eng6}}[0.45\textwidth]
         {\includegraphics[width=\linewidth]{figures/NASA/NASA_GAT_eng7.png}}
