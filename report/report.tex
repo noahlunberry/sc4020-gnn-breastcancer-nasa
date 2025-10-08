@@ -11,6 +11,7 @@
 \usepackage[titles]{tocloft}  % Allows customization of ToC layout
 \usepackage{etoolbox}
 \usepackage{comment}
+\usepackage{hyperref}
 
 \titleformat{\section}
     {\centering\fontS{18}\bfseries} %Centered, Font 18, Bold
@@ -112,13 +113,77 @@ In order to prepare for training, the data was normalized for each characteristi
 \subsection{Training, Inferene and Evaluation}
 
 \pagebreak
-\section{Experiments}
+\section{Results}
+This section displays the results of the GCN and GAT models on first the breast cancer dataset, and then the NASA turbofan jet engine dataset. Predicted values are plotted against true values.
 
-\subsection{Independent Parameters}
+\subsection{Breast cancer dataset}
 
-\subsection{Dependent Parameters}
+\subsection{NASA turbofan jet engine dataset}
+\subsubsection{GCN model}
+The results of the GCN model on the NASA turbofan jet engine dataset vary: \autoref{fig_NASA_GCN_eng6} is an example of a good fit of data, with the predictions well aligned with the true values. Other than some small spikes in the data, the downward slope is roughly correct. \autoref{fig_NASA_GCN_eng4} shows an example of slight bias - the slope of the predicted values is mostly correct, however, all predicted values are shifted upwards of the actual values by the same amount. \autoref{fig_NASA_GCN_eng2} and \autoref{fig_NASA_GCN_eng1} show moderate and high levels of bias respectively. Again, the slope of the predicted values is mostly correct, but all predicted values are vertically shifted from true values. Interestingly, \autoref{fig_NASA_GCN_eng1} has a mnuch smoother slope than the examples with less bias. 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/NASA/NASA_GCN_eng6.png} 
+    \caption{GCN model on NASA data: good fit}
+    \label{fig_NASA_GCN_eng6}
+\end{figure}
 
-\subsection{Scope of Investigation}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/NASA/NASA_GCN_eng4.png} 
+    \caption{GCN model on NASA data: slight bias}
+    \label{fig_NASA_GCN_eng4}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/NASA/NASA_GCN_eng2.png} 
+    \caption{GCN model on NASA data: moderate bias}
+    \label{fig_NASA_GCN_eng2}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/NASA/NASA_GCN_eng1.png} 
+    \caption{GCN model on NASA data: high bias}
+    \label{fig_NASA_GCN_eng1}
+\end{figure}
+
+\subsubsection{GAT model}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/NASA/NASA_GAT_eng7.png} 
+    \caption{GAT model on NASA data: good fit}
+    \label{fig_NASA_GAT_eng7}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/NASA/NASA_GAT_eng6.png} 
+    \caption{GAT model on NASA data: slight bias}
+    \label{fig_NASA_GAT_eng6}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/NASA/NASA_GAT_eng1.png} 
+    \caption{GAT model on NASA data: moderate bias}
+    \label{fig_NASA_GAT_eng1}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/NASA/NASA_GAT_eng3.png} 
+    \caption{GAT model on NASA data: high bias}
+    \label{fig_NASA_GAT_eng3}
+\end{figure}
+
+
+\subsubsection{GCN}
+\subsubsection{GAT}
+
+\pagebreak
+\section{Analysis}
 
 \pagebreak
 \section{Conclusion}
