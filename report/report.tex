@@ -1,6 +1,9 @@
 \documentclass[12pt]{article}
 \usepackage{graphicx} % Required for inserting images
 \graphicspath{images/} % Direct to "images" folder
+\usepackage{subcaption} 
+\usepackage{caption}      
+\usepackage{float} 
 \usepackage{conveniences}
 \usepackage{geometry}
 \usepackage{ragged2e}
@@ -119,89 +122,29 @@ For the turbofan dataset, nodes represented sensor states and operational condit
 as a regression task.
 
 
-\subsubsection{Graph Convolutional Network (GCN)}
-The Graph Convolutional Network (GCN) serves as a baseline model for learning from graph-structured data. A GCN updates node representations by aggregating feature information from neighboring nodes.
-The GCN architecture consisted of 2 convolutional layers with a  RELU activation function, and dropout for regularization.
 
-\subsubsection{Graph Attention Network (GAT)}
-The Graph Attention Network (GAT) extends the GCN by introducing an attention mechanism over neighboring nodes. Instead of averaging features uniformly, GAT learns attention coefficients that weight the contribution of each neighbor during aggregation. This allows the model to focus on the most informative relationships within the graph, which, especially in datasets with high assumed covariance, can lead to significantly improved results.
-The GAT architecture consisted of 2 attention layers with 8 attention heads, followed by RELU. Again, dropout was used for regularization.
+    \begin{subcaptionbox}{Good fit\label{fig_NASA_GAT_eng6}}[0.45\textwidth]
+        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GAT_eng7.png}}
+    \end{subcaptionbox}
+    \hfill
+    \begin{subcaptionbox}{Slight bias\label{fig_NASA_GAT_eng4}}[0.45\textwidth]
+        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GAT_eng6.png}}
+    \end{subcaptionbox}
 
+    \vspace{0.5cm}
 
-\subsection{Training, Inference, and Evaluation}
-Both models were trained for 300 epochs on the NASA dataset, using MSE error due to the regressional nature of the target variable.
-For the breast cancer dataset cross-entropy loss was employed due to the classification nature of the target, with 100 epochs.
+    \begin{subcaptionbox}{Moderate bias\label{fig_NASA_GAT_eng2}}[0.45\textwidth]
+        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GAT_eng1.png}}
+    \end{subcaptionbox}
+    \hfill
+    \begin{subcaptionbox}{High bias\label{fig_NASA_GAT_eng3}}[0.45\textwidth]
+        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GAT_eng3.png}}
+    \end{subcaptionbox}
 
-The trained models were then used for inference on the validation dataset and compared to the reference. For the breast cancer dataset, an F1 score was used for evaluation, while for the NASA dataset, the MSE is used to compare the performance.
-\pagebreak
-\section{Results}
-This section displays the results of the GCN and GAT models on first the breast cancer dataset, and then the NASA turbofan jet engine dataset. Predicted values are plotted against true values.
-
-\subsection{Breast cancer dataset}
-
-\subsection{NASA turbofan jet engine dataset}
-\subsubsection{GCN model}
-The results of the GCN model on the NASA turbofan jet engine dataset vary: \autoref{fig_NASA_GCN_eng6} is an example of a good fit of data, with the predictions well aligned with the true values. Other than some small spikes in the data, the downward slope is roughly correct. \autoref{fig_NASA_GCN_eng4} shows an example of slight bias - the slope of the predicted values is mostly correct, however, all predicted values are shifted upwards of the actual values by the same amount. \autoref{fig_NASA_GCN_eng2} and \autoref{fig_NASA_GCN_eng1} show moderate and high levels of bias respectively. Again, the slope of the predicted values is mostly correct, but all predicted values are vertically shifted from true values. Interestingly, \autoref{fig_NASA_GCN_eng1} has a mnuch smoother slope than the examples with less bias. 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figures/NASA/NASA_GCN_eng6.png} 
-    \caption{GCN model on NASA data: good fit}
-    \label{fig_NASA_GCN_eng6}
+    \caption{GAT model on NASA data}
+    \label{GAT_NASA_all}
 \end{figure}
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figures/NASA/NASA_GCN_eng4.png} 
-    \caption{GCN model on NASA data: slight bias}
-    \label{fig_NASA_GCN_eng4}
-\end{figure}
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figures/NASA/NASA_GCN_eng2.png} 
-    \caption{GCN model on NASA data: moderate bias}
-    \label{fig_NASA_GCN_eng2}
-\end{figure}
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figures/NASA/NASA_GCN_eng1.png} 
-    \caption{GCN model on NASA data: high bias}
-    \label{fig_NASA_GCN_eng1}
-\end{figure}
-
-\subsubsection{GAT model}
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figures/NASA/NASA_GAT_eng7.png} 
-    \caption{GAT model on NASA data: good fit}
-    \label{fig_NASA_GAT_eng7}
-\end{figure}
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figures/NASA/NASA_GAT_eng6.png} 
-    \caption{GAT model on NASA data: slight bias}
-    \label{fig_NASA_GAT_eng6}
-\end{figure}
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figures/NASA/NASA_GAT_eng1.png} 
-    \caption{GAT model on NASA data: moderate bias}
-    \label{fig_NASA_GAT_eng1}
-\end{figure}
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figures/NASA/NASA_GAT_eng3.png} 
-    \caption{GAT model on NASA data: high bias}
-    \label{fig_NASA_GAT_eng3}
-\end{figure}
-
-
-\subsubsection{GCN}
-\subsubsection{GAT}
 
 \pagebreak
 \section{Analysis}
