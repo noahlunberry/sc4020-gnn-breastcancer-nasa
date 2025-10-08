@@ -95,56 +95,43 @@ This research was motivated by the 4AUs it carries (not worth it)
 
 \pagebreak
 \section{Methods}
-In order to accurately asseess the capability of two different graph networks, two diverese datasets were chosen. The two models were trained on each and evaluated.
+In order to accurately assess the capability of two different graph networks, two diverse datasets were chosen. The two models were trained on each and evaluated.
 
 \subsection{Datasets}
+The two datasets used in this study were the NASA Turbofan Jet Engine Degradation dataset (C-MAPSS) and the UCI Wisconsin Breast Cancer dataset. These were selected to reflect two distinct real-world problems. Prognostics of mechanical systems and medical diagnosis. This ensured diversity in the training data while reducing domain-specific bias.
 
-The two datasets used in this study are the NASA Turbofan Jet Engine Degradation dataset (C-MAPSS) and the UCI Wisconsin Breast Cancer dataset \todo{add proper citations}. These were selected to reflect two distinct real-world problems. Prognostics of mechanical systems and medical diagnosis. This ensures diversity in the training data while reducing domain-specific bias.
-
-The Wisconsin Breast Cancer dataset consists of 32 columns. Two columns correspond to identifiers and diagnosis labels respectively.
-The remaining 30 represent measurable tumor characteristics (e.g., radius, texture, perimeter, area, smoothness, compactness, concavity, etc.). The target variable is the classification of the tumor as benign or malignant.
-Prior to training, all numerical features were normalized to zero mean and unit variance to ensure convergence during training. The dataset was split into training and test sets using an 80/20 ratio.
+The Wisconsin Breast Cancer dataset consists of 32 columns. Two columns correspond to identifiers and diagnosis labels, respectively.
+The remaining 30 represent measurable tumor characteristics (e.g., radius, texture, area, smoothness, compactness, concavity, etc.). The target variable is the classification of the tumor as benign or malignant. Before training, all numerical features were normalized to zero mean and unit variance to ensure convergence during training. The dataset was split into training and test sets using an 80/20 ratio.
 
 
 The NASA C-MAPSS turbofan jet engine degradation dataset provides multivariate time-series data simulating total life scenarios of jet engines. Each engine instance is characterized by 26 columns: one engine identifier, one time cycle index, three operational condition variables, and 21 sensor measurements. The target variable is the Remaining Useful Life (RUL), defined as the number of cycles left until engine failure.
-
 The dataset was provided with separate training and validation partitions: 100 engines for training and 100 engines for validation. For consistency, sensor features were normalized across engines.
 
 
-The two datasets differ fundamentally both in data modality (tabular biomedical features vs. multivariate time-series sensor data) and in target type (classification vs. regression). This diversity was intentional, aiming to assess the generalizability of the evaluated models across domains.
+The two datasets differ fundamentally, both in data modality (tabular biomedical features vs. multivariate time-series sensor data) and in target type (classification vs. regression). This diversity was intentional, aiming to assess the generalizability of the evaluated models across domains.
 
 
 \subsection{Models}
+Two graph networks with different layers were used.
+For the breast cancer dataset, nodes corresponded to patient samples, while the edges were chosen according to a k-NN graph. Node features corresponded to the 30 tumor attributes, and the output task was binary classification.
+For the turbofan dataset, nodes represented sensor states and operational conditions. Edges were defined through feature correlations. The GCN then predicted the Remaining Useful Life (RUL)
+as a regression task.
+
+
 \subsubsection{Graph Convolutional Network (GCN)}
-The Graph Convolutional Network (GCN) serves as a baseline model for learning from graph-structured data. A GCN updates node representations by aggregating feature information from neighboring nodes using a normalized graph Laplacian.
-
-For the breast cancer dataset, nodes corresponded to patient samples, while the edges were the relations between these samples \todo{change i guess lol?}. Node features corresponded to the 30 tumor attributes, and the output task was binary classification.
-
-For the turbofan dataset, nodes represented sensor states and operational conditions. Edges were defined through temporal adjacency and feature correlations. The GCN then predicted the Remaining Useful Life (RUL) as a regression task.
-
-The GCN architecture consisted of \todo{insert number of layers} convolutional layers with \todo{activation functions, e.g., ReLU}, dropout for regularization, \todo{bro di dont know}.
+The Graph Convolutional Network (GCN) serves as a baseline model for learning from graph-structured data. A GCN updates node representations by aggregating feature information from neighboring nodes.
+The GCN architecture consisted of 2 convolutional layers with a  RELU activation function, and dropout for regularization.
 
 \subsubsection{Graph Attention Network (GAT)}
-The Graph Attention Network (GAT) extends the GCN by introducing an attention mechanism over neighboring nodes. Instead of averaging features uniformly, GAT learns attention coefficients that weight the contribution of each neighbor during aggregation. This allows the model to focus on the most informative relationships within the graph, which especially in datasets with high assumed covariance, can lead to significantly improved results.
-
-The same graph structures described for the GCN were used for the GAT.
-
-The GAT architecture consisted of \todo{insert number} attention layers with \todo{insert number} attention heads, followed by nonlinear activations (e.g., ELU), dropout.
+The Graph Attention Network (GAT) extends the GCN by introducing an attention mechanism over neighboring nodes. Instead of averaging features uniformly, GAT learns attention coefficients that weight the contribution of each neighbor during aggregation. This allows the model to focus on the most informative relationships within the graph, which, especially in datasets with high assumed covariance, can lead to significantly improved results.
+The GAT architecture consisted of 2 attention layers with 8 attention heads, followed by RELU. Again, dropout was used for regularization.
 
 
 \subsection{Training, Inference, and Evaluation}
+Both models were trained for 300 epochs on the NASA dataset, using MSE error due to the regressional nature of the target variable.
+For the breast cancer dataset cross-entropy loss was employed due to the classification nature of the target, with 100 epochs.
 
-Both models were trained under consistent experimental conditions.
-
-\paragraph{Training Setup.}
-The models were trained for 300 epochs using the mean square error
-
-\paragraph{Inference.} After training, the best-performing model checkpoints were used for inference on the test datasets.
-
-\paragraph{Evaluation Metrics.}
-- For the breast cancer dataset: Accuracy, Precision, Recall, F1-score, and ROC-AUC were reported.
-- For the turbofan dataset: Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), and the PHM challenge scoring function \todo{if used} were computed.
-
+The trained models were then used for inference on the validation dataset and compared to the reference. For the breast cancer dataset, an F1 score was used for evaluation, while for the NASA dataset, the MSE is used to compare the performance.
 \pagebreak
 \section{Experiments}
 
