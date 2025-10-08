@@ -5,7 +5,7 @@ Cancer-GAT: Graph Attention Network on Breast Cancer Dataset
 Steps:
 1. Load breast-cancer.csv (drop id column if present, map diagnosis: B=0, M=1).
 2. Scale feature columns with StandardScaler.
-3. Build a k-NN graph (nodes=patients, edges=similarity by cosine distance, k=10).
+3. Build a k-NN graph (nodes=patients, edges=similarity; cosine via L2-normalize + Euclidean KNN, k=10).
 4. Split nodes into train/test (80/20, stratified by class).
 5. Train a Graph Attention Network (GAT) to classify nodes.
 6. Print Accuracy, Precision, Recall, F1, and ROC-AUC on the test set.
@@ -17,6 +17,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch_geometric.nn import GATConv, knn_graph
+from torch_geometric.utils import to_undirected
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
@@ -29,7 +30,11 @@ if "id" in df.columns:
     df = df.drop(columns=["id"])
 
 # encode labels: B=0 (benign), M=1 (malignant)
+if "diagnosis" not in df.columns:
+    raise ValueError("Expected a 'diagnosis' column with values 'B' or 'M'.")
 df["diagnosis"] = df["diagnosis"].map({"B": 0, "M": 1})
+if df["diagnosis"].isna().any():
+    raise ValueError("Found labels other than 'B'/'M' in 'diagnosis' column.")
 
 # separate features and labels
 X = df.drop(columns=["diagnosis"]).values
@@ -39,12 +44,16 @@ y = df["diagnosis"].values
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
-# sonvert to PyTorch tensors
+# convert to PyTorch tensors
 x_tensor = torch.tensor(X_scaled, dtype=torch.float)
 y_tensor = torch.tensor(y, dtype=torch.long)
 
-# 2) build k-NN graph (k=10 neighbors, cosine similarity)
-edge_index = knn_graph(x_tensor, k=10, loop=False, cosine=True)
+# 2) build k-NN graph (k=10 neighbors)
+# CPU-safe cosine KNN: L2-normalize then use Euclidean KNN (equivalent to cosine KNN)
+x_tensor = F.normalize(x_tensor, p=2, dim=1)
+edge_index = knn_graph(x_tensor, k=10, loop=False)  # <- no cosine=True on CPU
+# (optional) make edges undirected for better message passing
+edge_index = to_undirected(edge_index, num_nodes=x_tensor.size(0))
 
 print(f"Graph built: {x_tensor.shape[0]} nodes, {edge_index.shape[1]} edges")
 
@@ -62,9 +71,7 @@ print(f"Train nodes: {len(train_idx)}, Test nodes: {len(test_idx)}")
 class GATNet(nn.Module):
     def __init__(self, in_channels, hidden_channels, out_channels, heads=8, dropout=0.6):
         super(GATNet, self).__init__()
-        # first GAT layer: multi-head attention
         self.gat1 = GATConv(in_channels, hidden_channels, heads=heads, dropout=dropout)
-        # second GAT layer: single head output to 2 classes
         self.gat2 = GATConv(hidden_channels * heads, out_channels,
                             heads=1, concat=False, dropout=dropout)
         self.dropout = dropout
@@ -94,7 +101,7 @@ test_idx = test_idx.to(device)
 optimizer = torch.optim.Adam(model.parameters(), lr=0.005, weight_decay=5e-4)
 criterion = nn.CrossEntropyLoss()
 
-# train the GYYYYYYYYATTTTTTTTTTTTTT
+# 6) train
 model.train()
 for epoch in range(100):
     optimizer.zero_grad()
@@ -105,7 +112,7 @@ for epoch in range(100):
     if (epoch + 1) % 10 == 0:
         print(f"Epoch {epoch+1}, Loss: {loss.item():.4f}")
 
-# 6) evaluation on test set
+# 7) evaluate
 model.eval()
 with torch.no_grad():
     out = model(x_tensor, edge_index)
