@@ -287,14 +287,14 @@ GCN (Sarah) & 0.9561 & --- & --- & --- & --- \\
 \end{tabular}
 \end{table}
 
-\pagebreak
-
 \subsection{NASA turbofan jet engine dataset: GCN vs GAT}
 The GCN and GAT models have similar MSE errors (see \autoref{table_NASA_MSE}), indicating similar performance. This can be confirmed by analysing plots of the predicted RUL values against the true RUL values, as shown in \autoref{GCN_NASA_all} and \autoref{GAT_NASA_all}. While both models have small oscillations throughout their predicted values, the models capture the general downward trend of the RUL data quite successfully. 
 
 Varying levels of bias can be seen in the predictions. In an attempt to explain this bias, the RUL values were normalised. This is because the range of RUL values in the datasets was large, with some engines having RULs in the range of 50, while others - 200. The cycle numbers can also range from ranges of 60 to ranges of 200. This makes it difficult for the models to predict precise values across all engines. Predictions display the least bias for the engines having RULs in the range of 200, and the most bias for those with RULs in the range 50. Unfortunately, the normalisation attempts the did not fix the bias, hence further investigation is required to solve this issue.
 
 \subsection{Comparison of GCN vs GAT across both datasets}
+
+\pagebreak
 \section{Conclusion}
 
 \subsection{Heading}
