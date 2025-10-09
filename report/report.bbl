@@ -170,7 +170,7 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{abstract}{Graph neural networks are a deep neural network architecture that represents data about entities and their relationships. They're useful for real-world data mining, understanding social networks, knowledge graphs, recommender systems and bioinformatics.}
-      \field{howpublished}{https://www.ibm.com/think/topics/graph-neural-network}
+      \field{howpublished}{https://www.ibm.com/\allowbreak think/topics/graph-neural-network}
       \field{langid}{english}
       \field{month}{2}
       \field{title}{What Is a {{Graph Neural Network}} {|} {{IBM}}}

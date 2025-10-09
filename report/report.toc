@@ -15,7 +15,8 @@
 \contentsline {subsubsection}{\numberline {3.2.2}GCN model plots}{5}{subsubsection.3.2.2}%
 \contentsline {subsubsection}{\numberline {3.2.3}GAT model plots}{6}{subsubsection.3.2.3}%
 \contentsline {section}{\numberline {4}Analysis}{8}{section.4}%
-\contentsline {subsection}{\numberline {4.1}NASA turbofan jet engine dataset: GCN vs GAT}{8}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Comparison of GCN vs GAT across both datasets}{8}{subsection.4.2}%
-\contentsline {section}{\numberline {5}Conclusion}{9}{section.5}%
+\contentsline {subsection}{\numberline {4.1}Breast Cancer Dataset: GAT vs GCN (short analysis)}{8}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}NASA Turbofan Jet Engine Dataset: GAT vs GCN}{8}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Comparison of GCN vs GAT across both datasets}{9}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Conclusion}{10}{section.5}%
 \contentsline {section}{List of References}{R-1}{section.5}%
