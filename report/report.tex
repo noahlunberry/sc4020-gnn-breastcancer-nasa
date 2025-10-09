@@ -15,7 +15,12 @@
 \usepackage[titles]{tocloft}  % Allows customization of ToC layout
 \usepackage{etoolbox}
 \usepackage{comment}
+
 \usepackage{hyperref}
+\renewcommand{\sectionautorefname}{Section}
+\renewcommand{\subsectionautorefname}{Section}
+\renewcommand{\subsubsectionautorefname}{Section}
+
 \usepackage[style=ieee,sorting=ynt]{biblatex}
 \addbibresource{references.bib}
 
@@ -161,8 +166,6 @@ ROC-AUC   & 0.9944 \\
 
 \subsubsection{GCN model}
 
-
-
 \begin{table}[H]
 \centering
 \caption{GCN results on breast cancer dataset}
@@ -291,6 +294,11 @@ In this report, two types of GNNs (GCNs and GATs) were applied to two different 
 
 \pagebreak
 \section{Conclusion}
+This project compared the performance of Graph Convolutional Networks (GCNs) and Graph Attention Networks (GATs) on two datasets of contrasting nature: a tabular biomedical classification problem and a multivariate time-series regression task. Having achieved similar accuracy levels on the breast cancer dataset (95.6%) – with GAT exhibiting slightly higher discriminative power as reflected in the ROC-AUC – and both models capturing general degradation trends on the NASA turbofan dataset, the results show that both models performed effectively. It is worth noting that on the NASA turbofan dataset, there were varying degrees of bias, suggesting that the construction of the relational graph is vital to performance stability.
+
+The results indicate that while GATs can provide improved interpretability and fine-grained relational modelling through attention weighting, their advantages over GCNs are data dependent. When feature relationships are clear and uniform, GCNs remain competitive due to their simplicity and efficiency. However, in complex domains with heterogeneous node connections or nonuniform influence, GATs may offer more robust representations.
+
+Future work could involve dynamic graph construction methods, temporal graph networks for sequential data, and larger-scale evaluation across additional domains to further assess generalization.
 
 \pagebreak
 \section*{List of References}
