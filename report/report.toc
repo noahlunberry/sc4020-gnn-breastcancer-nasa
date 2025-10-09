@@ -18,5 +18,4 @@
 \contentsline {subsection}{\numberline {4.1}NASA turbofan jet engine dataset: GCN vs GAT}{8}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Comparison of GCN vs GAT across both datasets}{9}{subsection.4.2}%
 \contentsline {section}{\numberline {5}Conclusion}{10}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Heading}{10}{subsection.5.1}%
-\contentsline {section}{List of References}{R-1}{subsection.5.1}%
+\contentsline {section}{List of References}{R-1}{section.5}%
