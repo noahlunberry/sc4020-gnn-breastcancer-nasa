@@ -153,13 +153,10 @@ ROC-AUC   & 0.9944 \\
 \end{tabular}
 \end{table}
 
-The GAT model did pretty well. It could tell benign and malignant tumors apart most of the time. The recall was a bit lower than the precision, so it missed a few malignant cases, but not many. The ROC-AUC score shows it still handles both classes very well. The attention part probably helped by letting the model focus on the more important neighbor nodes instead of averaging everyone the same way.
 
 \subsubsection{GCN model}
 
-I also report the Graph Convolutional Network (GCN) for the same data. Each patient is a node. We make edges with a $k$-NN graph (here $k=8$ like the code). Node features are the 30 tumor stats. The task is the same binary label.
 
-We trained for 200 epochs with cross-entropy. Loss went down over time (e.g., 0.11 at epoch 20, then ~0.07 by the end). The final test accuracy was $0.9561$.
 
 \begin{table}[H]
 \centering
@@ -169,12 +166,13 @@ We trained for 200 epochs with cross-entropy. Loss went down over time (e.g., 0.
 \textbf{Metric} & \textbf{Score} \\
 \hline
 Accuracy  & 0.9561 \\
-Precision & --- \\
-Recall    & --- \\
-F1-Score  & --- \\
-ROC-AUC   & --- \\
+Precision & 0.9744 \\
+Recall    & 0.9048 \\
+F1-Score  & 0.9383 \\
+ROC-AUC   & 0.9924 \\
 \hline
 \end{tabular}
+
 \end{table}
 
 \subsection{NASA turbofan jet engine dataset} 
@@ -262,9 +260,8 @@ The results of the GAT model on the NASA turbofan jet engine dataset follow a si
 
 \subsection*{Breast cancer dataset: GAT vs GCN (short analysis)}
 
-Both models hit the same test accuracy ($0.9561$). That tells me the dataset is clean and not too hard. The GAT shows a strong ROC-AUC ($0.9944$) and good F1 ($0.9398$), with recall $0.9286$. So it catches most malignant cases, while keeping precision high.
+Head to head: both models hit the same accuracy (0.9561). GCN has higher precision (0.9744) but lower recall (0.9048). GAT flips that: lower precision (0.9512) but higher recall (0.9286). So GAT finds a few more malignant cases, while GCN is a bit stricter. GAT also has a slightly higher ROC-AUC (0.9944 vs 0.9924), which means it separates classes a touch cleaner across thresholds.
 
-The main difference: GCN averages neighbors; GAT learns weights for each neighbor. On this data the gain is small but real in AUC. That fits our expect: attention helps when some neighbors matter more than others. If we align $k$ (Sarah used $k{=}8$, my GAT used $k{=}10$) we may see tiny shifts, but likely the same story.
 \begin{table}[H]
 \centering
 \caption{Breast cancer: GAT vs GCN comparison}
@@ -272,10 +269,11 @@ The main difference: GCN averages neighbors; GAT learns weights for each neighbo
 \hline
 \textbf{Model} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} & \textbf{ROC-AUC} \\
 \hline
-GAT  & 0.9561 & 0.9512 & 0.9286 & 0.9398 & 0.9944 \\
-GCN & 0.9561 & --- & --- & --- & --- \\
+GAT & 0.9561 & 0.9512 & 0.9286 & 0.9398 & 0.9944 \\
+GCN & 0.9561 & 0.9744 & 0.9048 & 0.9383 & 0.9924 \\
 \hline
 \end{tabular}
+
 \end{table}
 
 \subsection{NASA turbofan jet engine dataset: GCN vs GAT}

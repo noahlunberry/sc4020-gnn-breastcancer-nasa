@@ -21,6 +21,8 @@ from torch_geometric.utils import to_undirected
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
+import matplotlib.pyplot as plt
+from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
 
 # 1) load and preprocess dataset
 df = pd.read_csv("breast-cancer.csv")
@@ -134,3 +136,10 @@ print(f"Precision: {prec:.4f}")
 print(f"Recall:    {rec:.4f}")
 print(f"F1-score:  {f1:.4f}")
 print(f"ROC-AUC:   {auc:.4f}")
+
+cm = confusion_matrix(true_labels, test_pred)
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Benign", "Malignant"])
+disp.plot(cmap="Blues")
+plt.title("Breast Cancer – GAT Confusion Matrix")
+plt.tight_layout()
+plt.show()
