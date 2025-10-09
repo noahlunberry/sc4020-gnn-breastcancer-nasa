@@ -286,6 +286,7 @@ The GCN and GAT models have similar MSE errors (see \autoref{table_NASA_MSE}), i
 Varying levels of bias can be seen in the predictions. In an attempt to explain this bias, the RUL values were normalised. This is because the range of RUL values in the datasets was large, with some engines having RULs in the range of 50, while others - 200. The cycle numbers can also range from ranges of 60 to ranges of 200. This makes it difficult for the models to predict precise values across all engines. Predictions display the least bias for the engines having RULs in the range of 200, and the most bias for those with RULs in the range 50. Unfortunately, the normalisation attempts the did not fix the bias, hence further investigation is required to solve this issue.
 
 \subsection{Comparison of GCN vs GAT across both datasets}
+In this report, two types of GNNs (GCNs and GATs) were applied to two different tasks: classification (the breast cancer dataset) and prognosis (the NASA turbofan jet engine dataset). Interestingly, the the metrics and predictions and thus the performance of both models was highly similar for each dataset. This indicates that the GNN types have comparable results for classification and prognosis tasks. Further experimentation with more datasets is needed to clarify the extent of this conclusion.
 
 \pagebreak
 \section{Conclusion}
