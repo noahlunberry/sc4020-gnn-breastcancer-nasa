@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.4.18)  10 OCT 2025 06:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.4.18)  10 OCT 2025 13:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -749,7 +749,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.102 \section
+l.106 \section
               {Methods} [1]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -778,22 +778,22 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 <figures/NASA/NASA_GCN_eng6.png, id=167, 722.7pt x 361.35pt>
 File: figures/NASA/NASA_GCN_eng6.png Graphic file (type png)
 <use figures/NASA/NASA_GCN_eng6.png>
-Package pdftex.def Info: figures/NASA/NASA_GCN_eng6.png  used on input line 213.
+Package pdftex.def Info: figures/NASA/NASA_GCN_eng6.png  used on input line 217.
 (pdftex.def)             Requested size: 193.50076pt x 96.74977pt.
 <figures/NASA/NASA_GCN_eng4.png, id=169, 722.7pt x 361.35pt>
 File: figures/NASA/NASA_GCN_eng4.png Graphic file (type png)
 <use figures/NASA/NASA_GCN_eng4.png>
-Package pdftex.def Info: figures/NASA/NASA_GCN_eng4.png  used on input line 217.
+Package pdftex.def Info: figures/NASA/NASA_GCN_eng4.png  used on input line 221.
 (pdftex.def)             Requested size: 193.50076pt x 96.74977pt.
 <figures/NASA/NASA_GCN_eng2.png, id=170, 722.7pt x 361.35pt>
 File: figures/NASA/NASA_GCN_eng2.png Graphic file (type png)
 <use figures/NASA/NASA_GCN_eng2.png>
-Package pdftex.def Info: figures/NASA/NASA_GCN_eng2.png  used on input line 223.
+Package pdftex.def Info: figures/NASA/NASA_GCN_eng2.png  used on input line 227.
 (pdftex.def)             Requested size: 193.50076pt x 96.74977pt.
 <figures/NASA/NASA_GAT_eng3.png, id=171, 722.7pt x 361.35pt>
 File: figures/NASA/NASA_GAT_eng3.png Graphic file (type png)
 <use figures/NASA/NASA_GAT_eng3.png>
-Package pdftex.def Info: figures/NASA/NASA_GAT_eng3.png  used on input line 227.
+Package pdftex.def Info: figures/NASA/NASA_GAT_eng3.png  used on input line 231.
 (pdftex.def)             Requested size: 193.50076pt x 96.74977pt.
 
 
@@ -807,21 +807,21 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 <figures/NASA/NASA_GAT_eng7.png, id=183, 722.7pt x 361.35pt>
 File: figures/NASA/NASA_GAT_eng7.png Graphic file (type png)
 <use figures/NASA/NASA_GAT_eng7.png>
-Package pdftex.def Info: figures/NASA/NASA_GAT_eng7.png  used on input line 244.
+Package pdftex.def Info: figures/NASA/NASA_GAT_eng7.png  used on input line 248.
 (pdftex.def)             Requested size: 193.50076pt x 96.74977pt.
 <figures/NASA/NASA_GAT_eng6.png, id=184, 722.7pt x 361.35pt>
 File: figures/NASA/NASA_GAT_eng6.png Graphic file (type png)
 <use figures/NASA/NASA_GAT_eng6.png>
-Package pdftex.def Info: figures/NASA/NASA_GAT_eng6.png  used on input line 248.
+Package pdftex.def Info: figures/NASA/NASA_GAT_eng6.png  used on input line 252.
 (pdftex.def)             Requested size: 193.50076pt x 96.74977pt.
 <figures/NASA/NASA_GAT_eng1.png, id=185, 722.7pt x 361.35pt>
 File: figures/NASA/NASA_GAT_eng1.png Graphic file (type png)
 <use figures/NASA/NASA_GAT_eng1.png>
-Package pdftex.def Info: figures/NASA/NASA_GAT_eng1.png  used on input line 254.
+Package pdftex.def Info: figures/NASA/NASA_GAT_eng1.png  used on input line 258.
 (pdftex.def)             Requested size: 193.50076pt x 96.74977pt.
 File: figures/NASA/NASA_GAT_eng3.png Graphic file (type png)
 <use figures/NASA/NASA_GAT_eng3.png>
-Package pdftex.def Info: figures/NASA/NASA_GAT_eng3.png  used on input line 258.
+Package pdftex.def Info: figures/NASA/NASA_GAT_eng3.png  used on input line 262.
 (pdftex.def)             Requested size: 193.50076pt x 96.74977pt.
 
 
@@ -882,7 +882,7 @@ LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 0.74pt have occurred.
 
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 17E2C69ED8575F953186D6FB62E3FF17;3542.
+(rerunfilecheck)             Checksum: 2D13AE4E8D3E40838E6C86101223F225;3445.
 Package logreq Info: Writing requests to 'report.run.xml'.
 \openout1 = `report.run.xml'.
 
@@ -896,7 +896,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  69i,11n,81p,1270b,1296s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><c:/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on report.pdf (15 pages, 635254 bytes).
+Output written on report.pdf (15 pages, 635843 bytes).
 PDF statistics:
  270 PDF objects out of 1000 (max. 8388607)
  222 compressed objects within 3 object streams

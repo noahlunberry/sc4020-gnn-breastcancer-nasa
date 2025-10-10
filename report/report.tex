@@ -67,7 +67,12 @@
 \markboth{Abstract}{} 
 \addcontentsline{toc}{section}{Abstract} 
 
-This project focused on two graph-based neural networks, Graph Convolutional Network (GCN) AND Graph Attention Network (GAT). The models were then applied to our chosen datasets: the Wisconsin Breast Cancer dataset and the NASA Turbofan Jet Engine Degradation. Selected to represent classification and regression, the chosen datasets reflect two distinct problem domains: medical diagnosis and mechanical prognostics. Both models were trained and evaluated using appropriate loss functions and metrics. Results showed that both architectures performed comparably on the breast cancer dataset, both attaining an accuracy of 95.1\%. On the NASA Turbofan dataset, both models achieved 
+This project focused on two graph-based neural networks, Graph Convolutional Network (GCN) AND Graph Attention Network (GAT). 
+The models were then applied to our chosen datasets: the Wisconsin Breast Cancer dataset and the NASA Turbofan Jet Engine Degradation dataset. 
+Selected to represent classification and regression, the chosen datasets reflect two distinct problem domains: medical diagnosis and mechanical prognostics. 
+Both models were trained and evaluated using appropriate loss functions and metrics. 
+Results showed that both architectures performed comparably on the breast cancer dataset (attaining an accuracy of 95.1\%). 
+On the NASA Turbofan dataset, both models achieved similar performance with MSE values differing by less than 0.1\%
 
 \pagebreak
 \renewcommand{\cftdotsep}{0.5}
@@ -79,7 +84,6 @@ This project focused on two graph-based neural networks, Graph Convolutional Net
 \renewcommand{\cftsecpresnum}{Chapter~} % Adds "Chapter" before section number
 \renewcommand{\cftsecaftersnum}{\quad} 
 \setlength{\cftsecnumwidth}{6.1em}   %hardcoded in, will die if you have double digit chapters
-%\renewcommand{\numberline}[1]{Chapter #1\quad} %old code, works as well but add Chapter to the subsections too which is L
 \tableofcontents
 
 \pagebreak
@@ -266,7 +270,7 @@ The results of the GAT model on the NASA turbofan jet engine dataset follow a si
 \pagebreak
 \section{Analysis} \label{sec_analysis}
 
-\subsection{Breast Cancer Dataset: GAT vs GCN (short analysis)}
+\subsection{Breast Cancer Dataset: GAT vs GCN}
 
 Head to head: both models hit the same accuracy (0.9561). GCN has higher precision (0.9744) but lower recall (0.9048). GAT flips that: lower precision (0.9512) but higher recall (0.9286). So GAT finds a few more malignant cases, while GCN is a bit stricter. GAT also has a slightly higher ROC-AUC (0.9944 vs 0.9924), which means it separates classes a touch cleaner across thresholds.
 
@@ -289,16 +293,23 @@ The GCN and GAT models have similar MSE errors (see \autoref{table_NASA_MSE}), i
 
 Varying levels of bias can be seen in the predictions. In an attempt to explain this bias, the RUL values were normalised. This is because the range of RUL values in the datasets was large, with some engines having RULs in the range of 50, while others - 200. The cycle numbers can also range from ranges of 60 to ranges of 200. This makes it difficult for the models to predict precise values across all engines. Predictions display the least bias for the engines having RULs in the range of 200, and the most bias for those with RULs in the range 50. Unfortunately, the normalisation attempts the did not fix the bias, hence further investigation is required to solve this issue.
 
-\subsection{Comparison of GCN vs GAT across both datasets}
-In this report, two types of GNNs (GCNs and GATs) were applied to two different tasks: classification (the breast cancer dataset) and prognosis (the NASA turbofan jet engine dataset). Interestingly, the the metrics and predictions and thus the performance of both models was highly similar for each dataset. This indicates that the GNN types have comparable results for classification and prognosis tasks. Further experimentation with more datasets is needed to clarify the extent of this conclusion.
+\subsection{Comparison of GAT vs GCN across both datasets}
+In this report, two types of GNNs (GCNs AND GATs) were applied to two different tasks: classification (the breast cancer dataset) and prognosis (the NASA turbofan jet engine dataset). Interestingly, the the metrics and predictions and thus the performance of both models was highly similar for each dataset. This indicates that the GNN types have comparable results for classification and prognosis tasks. Further experimentation with more datasets is needed to clarify the extent of this conclusion.
 
 \pagebreak
 \section{Conclusion}
-This project compared the performance of Graph Convolutional Networks (GCNs) and Graph Attention Networks (GATs) on two datasets of contrasting nature: a tabular biomedical classification problem and a multivariate time-series regression task. Having achieved similar accuracy levels on the breast cancer dataset (95.6%) – with GAT exhibiting slightly higher discriminative power as reflected in the ROC-AUC – and both models capturing general degradation trends on the NASA turbofan dataset, the results show that both models performed effectively. It is worth noting that on the NASA turbofan dataset, there were varying degrees of bias, suggesting that the construction of the relational graph is vital to performance stability.
+This project compared the performance of Graph Convolutional Networks (GCNs) and Graph Attention Networks (GATs) on two datasets of contrasting nature: a tabular biomedical classification problem and a multivariate time-series regression task. 
 
-The results indicate that while GATs can provide improved interpretability and fine-grained relational modelling through attention weighting, their advantages over GCNs are data dependent. When feature relationships are clear and uniform, GCNs remain competitive due to their simplicity and efficiency. However, in complex domains with heterogeneous node connections or nonuniform influence, GATs may offer more robust representations.
+Having achieved similar accuracy levels on the breast cancer dataset (95.6\%) -- with GAT exhibiting slightly higher discriminative power as reflected in the marginally larger ROC-AUC value –- and captured general degradation trends on the NASA turbofan dataset, the results concretely show that both models performed comparably across both datasets. 
+It is worth noting that on the NASA turbofan dataset, there were varying degrees of bias. This implies a vital role is played by the construction of the relational graph in performance stability.
 
-Future work could involve dynamic graph construction methods, temporal graph networks for sequential data, and larger-scale evaluation across additional domains to further assess generalization.
+Generally, albeit GATs can provide improved interpretability and fine-grained relational modelling through attention weighting, their advantages over GCNs depend on the dataset. 
+With clear feature relationships, the simplicity and efficiency of GCNs often make it the more appropriate model. 
+GATs on the other hand, offer more robust representations for data in complex domains with heterogeneous node connections or nonuniform influence.
+
+Given that both models performed to nearly identical accuracy and effectivesness for the chosen datasets, 
+future work could focus on larger, more heterogeneous graphs to determine the advantages provided by GAT over GCN for more complex graphs.
+Additionally, future work could work to solve the varying levels of bias found in the predictions on the NASA turbofan dataset.
 
 \pagebreak
 \section*{List of References}
