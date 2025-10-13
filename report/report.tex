@@ -1,8 +1,12 @@
 \documentclass[12pt]{article}
 \usepackage{graphicx} % Required for inserting images
 \graphicspath{images/} % Direct to "images" folder
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{float}
 \usepackage{conveniences}
 \usepackage{geometry}
+\usepackage{parskip}
 \usepackage{ragged2e}
 \usepackage{amssymb}
 \usepackage{titlesec}
@@ -11,6 +15,14 @@
 \usepackage[titles]{tocloft}  % Allows customization of ToC layout
 \usepackage{etoolbox}
 \usepackage{comment}
+
+\usepackage{hyperref}
+\renewcommand{\sectionautorefname}{Section}
+\renewcommand{\subsectionautorefname}{Section}
+\renewcommand{\subsubsectionautorefname}{Section}
+
+\usepackage[style=ieee,sorting=ynt]{biblatex}
+\addbibresource{references.bib}
 
 \titleformat{\section}
     {\centering\fontS{18}\bfseries} %Centered, Font 18, Bold
@@ -55,16 +67,12 @@
 \markboth{Abstract}{} 
 \addcontentsline{toc}{section}{Abstract} 
 
-There is nothing wrong with second place.
-Your best effort is all that anyone's asking for.
-And if you give your best and you come in second, you come in third, you come in last, it's not about winning or losing.
-It's about giving it everything you've got.
-Now, Sam has built a monument to devilry and chaos.
-I deserve second place, I came in second.
-The only crime that's been committed here is that Oscar and Ally deserve first.
-We should be applauding them for getting more points.
-But in this sick rodeo, this bizarre \textit{fucked up} clown festival that Sam's put together, we're here celebrating what I can only describe as the sickness at the core of America.
-And I'm gonna get him, I'm gonna get Sam.
+This project focused on two graph-based neural networks, Graph Convolutional Network (GCN) AND Graph Attention Network (GAT).
+The models were then applied to our chosen datasets: the Wisconsin Breast Cancer dataset and the NASA Turbofan Jet Engine Degradation dataset.
+Selected to represent classification and regression, the chosen datasets reflect two distinct problem domains: medical diagnosis and mechanical prognostics.
+Both models were trained and evaluated using appropriate loss functions and metrics.
+Results showed that both architectures performed comparably on the breast cancer dataset (attaining an accuracy of 95.1\%).
+On the NASA Turbofan dataset, both models achieved similar performance with MSE values differing by less than 0.1\%.
 
 \pagebreak
 \renewcommand{\cftdotsep}{0.5}
@@ -76,22 +84,23 @@ And I'm gonna get him, I'm gonna get Sam.
 \renewcommand{\cftsecpresnum}{Chapter~} % Adds "Chapter" before section number
 \renewcommand{\cftsecaftersnum}{\quad} 
 \setlength{\cftsecnumwidth}{6.1em}   %hardcoded in, will die if you have double digit chapters
-%\renewcommand{\numberline}[1]{Chapter #1\quad} %old code, works as well but add Chapter to the subsections too which is L
 \tableofcontents
 
 \pagebreak
 \pagenumbering{arabic}
 \section{Introduction}
 
-\subsection{Motivation for Research}
+Graphs are a type of data structure that maps objects (represented as nodes) and their relationships (represented as edges) \cite{zhouGraphNeuralNetworks2020}.
+Since graphs can be used to represent systems across a variety of areas. Consequently, Graph Neural Networks (GNNs), a machine learning method able to analyse such graphs, have emerged as an area for research and testing. GNNs are artificial neural networks that operate on the graphs.
+GNNs use a message-passing system to aggregate information from neighbouring nodes, allowing them to capture complex relationships in graphs \cite{wuGraphNeuralNetworks2022}.
 
-This research was motivated by the 4AUs it carries (not worth it)
+This project focuses on two variants of GNN:  Graph Attention Networks (GATs) and Graph Convolutional Networks (GCNs).
 
-\subsection{Objectives}
+GATs are a neural network architecture that operate on graph-structured data \cite{nobleWhatGraphNeural2025}.
+GCNs use a semi-supervised learning approach on variant convolutional networks that can learn and predict based on the graph \cite{nobleWhatGraphNeural2025}.
 
-\subsection{Scope of Work}
+Our goal in this project was to compare the performance and appropriateness of GCN and GAT models on different datasets. We tested the two models on two datasets: the Breast Cancer Dataset and the NASA Turbofan Jet Engine Data Set. This report details how both models work, the performance on the two models on the chosen datasets, and comparative analyses on the performance by the two models on the chosen datasets.
 
-\subsection{Organisation of Report}
 
 \pagebreak
 \section{Methods}
@@ -128,21 +137,179 @@ The GAT architecture consisted of 2 attention layers with 8 attention heads, fol
 \subsection{Training, Inference, and Evaluation}
 Both models were trained for 300 epochs on the NASA dataset, using MSE error due to the regressional nature of the target variable.
 
-For the breast cancer dataset, cross-entropy loss was employed due to the classification nature of the target, with 100 epochs.
-The trained models were then used for inference on the validation dataset and compared to the reference. For the breast cancer dataset, an F1 score was used for evaluation, while for the NASA dataset, the MSE was used to compare the performance.
+For the breast cancer dataset cross-entropy loss was employed due to the classification nature of the target, with 100 epochs.
+The trained models were then used for inference on the validation dataset and compared to the reference. For the breast cancer dataset, an F1 score was used for evaluation, while for the NASA dataset, the MSE is used to compare the performance.
 \pagebreak
-\section{Experiments}
 
-\subsection{Independent Parameters}
+\section{Results} \label{sec_results}
+\autoref{sec_results} will present the results of the models' predictions. \autoref{sec_analysis} will analyse and draw conclusions from these results.
 
-\subsection{Dependent Parameters}
+\subsection{Breast cancer dataset}
+\subsubsection{GAT model}
 
-\subsection{Scope of Investigation}
+In the GAT model, each patient was a node in the graph, and edges were made using the ten closest patients based on how similar their features were. The graph ended up with 569 nodes and 8,326 edges. This was then split it into 455 for training and 114 for testing.
+
+The GAT had two attention layers with eight heads each, and the model was trained it for 100 rounds using cross-entropy loss. The loss started around 0.23 and went down to about 0.11 by the end, which means the model was learning steadily.
+
+\begin{table}[H]
+\centering
+\caption{GAT results on breast cancer dataset}
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Metric} & \textbf{Score} \\
+\hline
+Accuracy  & 0.9561 \\
+Precision & 0.9512 \\
+Recall    & 0.9286 \\
+F1-Score  & 0.9398 \\
+ROC-AUC   & 0.9944 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\subsubsection{GCN model}
+
+\begin{table}[H]
+\centering
+\caption{GCN results on breast cancer dataset}
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Metric} & \textbf{Score} \\
+\hline
+Accuracy  & 0.9561 \\
+Precision & 0.9744 \\
+Recall    & 0.9048 \\
+F1-Score  & 0.9383 \\
+ROC-AUC   & 0.9924 \\
+\hline
+\end{tabular}
+
+\end{table}
+
+\subsection{NASA turbofan jet engine dataset}
+
+\subsubsection{MSE error}
+
+\autoref{table_NASA_MSE} shows the MSE error of both the GCN and GAT models. The GCN and GAT models have approximately the same MSE error, differing by less than 0.1\%.
+
+\begin{table}[H]
+\centering
+\caption{NASA turbofan jet engine: GCN vs GAT comparison}
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Model} & \textbf{MSE error}\\
+\hline
+GCN & 1365.4297  \\
+GAT & 1363.8159  \\
+\hline
+\end{tabular}
+\label{table_NASA_MSE}
+\end{table}
+
+\subsubsection{GCN model plots}
+The results of the GCN model on the NASA turbofan jet engine dataset vary: \autoref{fig_NASA_GCN_eng6} is an example of a good fit of data, with the predictions well aligned with the true values. Other than some small spikes in the data, the overall downward slope is roughly accurate. \autoref{fig_NASA_GCN_eng4} shows an example of slight bias, with the slope of the predicted values being mostly correct but all predicted values being shifted upwards of the actual values by the same amount. \autoref{fig_NASA_GCN_eng2} and \autoref{fig_NASA_GCN_eng3} show moderate and high levels of bias respectively. Again, the slope of the predicted values is mostly accurate, but all predicted values are vertically shifted from true values. Interestingly, the example with the most bias (\autoref{fig_NASA_GCN_eng3}) has a much smoother slope than the examples with less bias.
+
+\begin{figure}[H]
+    \centering
+
+    \begin{subcaptionbox}{Good fit\label{fig_NASA_GCN_eng6}}[0.45\textwidth]
+        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GCN_eng6.png}}
+    \end{subcaptionbox}
+    \hfill
+    \begin{subcaptionbox}{Slight bias\label{fig_NASA_GCN_eng4}}[0.45\textwidth]
+        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GCN_eng4.png}}
+    \end{subcaptionbox}
+
+    \vspace{0.5cm}
+
+    \begin{subcaptionbox}{Moderate bias\label{fig_NASA_GCN_eng2}}[0.45\textwidth]
+        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GCN_eng2.png}}
+    \end{subcaptionbox}
+    \hfill
+    \begin{subcaptionbox}{High bias\label{fig_NASA_GCN_eng3}}[0.45\textwidth]
+        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GAT_eng3.png}}
+    \end{subcaptionbox}
+
+    \caption{GCN model on NASA data}
+    \label{GCN_NASA_all}
+\end{figure}
+
+
+\subsubsection{GAT model plots}
+
+The results of the GAT model on the NASA turbofan jet engine dataset follow a similar trend those of the GCN model. Instances of good fits (\autoref{fig_NASA_GAT_eng6}), slight bias (\autoref{fig_NASA_GAT_eng4}), moderate bias (\autoref{fig_NASA_GAT_eng2}), and high bias (\autoref{fig_NASA_GAT_eng3}) can be found. The GAT model also has small spikes in the predicted values, but overall the slopes of the predicted values are accurate.
+
+
+\begin{figure}[H]
+    \centering
+
+    \begin{subcaptionbox}{Good fit\label{fig_NASA_GAT_eng6}}[0.45\textwidth]
+        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GAT_eng7.png}}
+    \end{subcaptionbox}
+    \hfill
+    \begin{subcaptionbox}{Slight bias\label{fig_NASA_GAT_eng4}}[0.45\textwidth]
+        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GAT_eng6.png}}
+    \end{subcaptionbox}
+
+    \vspace{0.5cm}
+
+    \begin{subcaptionbox}{Moderate bias\label{fig_NASA_GAT_eng2}}[0.45\textwidth]
+        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GAT_eng1.png}}
+    \end{subcaptionbox}
+    \hfill
+    \begin{subcaptionbox}{High bias\label{fig_NASA_GAT_eng3}}[0.45\textwidth]
+        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GAT_eng3.png}}
+    \end{subcaptionbox}
+
+    \caption{GAT model on NASA data}
+    \label{GAT_NASA_all}
+\end{figure}
+
+
+\pagebreak
+\section{Analysis} \label{sec_analysis}
+
+\subsection{Breast Cancer Dataset: GAT vs GCN}
+
+Head to head: both models hit the same accuracy (0.9561). GCN has higher precision (0.9744) but lower recall (0.9048). GAT flips that: lower precision (0.9512) but higher recall (0.9286). So GAT finds a few more malignant cases, while GCN is a bit stricter. GAT also has a slightly higher ROC-AUC (0.9944 vs 0.9924), which means it separates classes a touch cleaner across thresholds.
+
+\begin{table}[H]
+\centering
+\caption{Breast cancer: GAT vs GCN comparison}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Model} & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} & \textbf{ROC-AUC} \\
+\hline
+GAT & 0.9561 & 0.9512 & 0.9286 & 0.9398 & 0.9944 \\
+GCN & 0.9561 & 0.9744 & 0.9048 & 0.9383 & 0.9924 \\
+\hline
+\end{tabular}
+
+\end{table}
+
+\subsection{NASA Turbofan Jet Engine Dataset: GAT vs GCN}
+The GCN and GAT models have similar MSE errors (see \autoref{table_NASA_MSE}), indicating similar performance. This can be confirmed by analysing plots of the predicted RUL values against the true RUL values, as shown in \autoref{GCN_NASA_all} and \autoref{GAT_NASA_all}. While both models have small oscillations throughout their predicted values, the models capture the general downward trend of the RUL data quite successfully.
+
+Varying levels of bias can be seen in the predictions. In an attempt to explain this bias, the RUL values were normalised. This is because the range of RUL values in the datasets was large, with some engines having RULs in the range of 50, while others - 200. The cycle numbers can also range from ranges of 60 to ranges of 200. This makes it difficult for the models to predict precise values across all engines. Predictions display the least bias for the engines having RULs in the range of 200, and the most bias for those with RULs in the range 50. Unfortunately, the normalisation attempts the did not fix the bias, hence further investigation is required to solve this issue.
+
+\subsection{Comparison of GAT vs GCN across both datasets}
+In this report, two types of GNNs (GCNs AND GATs) were applied to two different tasks: classification (the breast cancer dataset) and prognosis (the NASA turbofan jet engine dataset). Interestingly, the the metrics and predictions and thus the performance of both models was highly similar for each dataset. This indicates that the GNN types have comparable results for classification and prognosis tasks. Further experimentation with more datasets is needed to clarify the extent of this conclusion.
 
 \pagebreak
 \section{Conclusion}
+This project compared the performance of Graph Convolutional Networks (GCNs) and Graph Attention Networks (GATs) on two datasets of contrasting nature: a tabular biomedical classification problem and a multivariate time-series regression task.
 
-\subsection{Heading}
+Having achieved similar accuracy levels on the breast cancer dataset (95.6\%) - with GAT exhibiting slightly higher discriminative power as reflected in the marginally larger ROC-AUC value - and captured general degradation trends on the NASA turbofan dataset, the results concretely show that both models performed comparably across both datasets.
+It is worth noting that on the NASA turbofan dataset, there were varying degrees of bias. This implies a vital role is played by the construction of the relational graph in performance stability.
+
+Generally, albeit GATs can provide improved interpretability and fine-grained relational modelling through attention weighting, their advantages over GCNs depend on the dataset.
+With clear feature relationships, the simplicity and efficiency of GCNs often make it the more appropriate model.
+GATs on the other hand, offer more robust representations for data in complex domains with heterogeneous node connections or nonuniform influence.
+
+Given that both models performed to nearly identical accuracy and effectivesness for the chosen datasets,
+future work could focus on larger, more heterogeneous graphs to determine the advantages provided by GAT over GCN for more complex graphs.
+Additionally, future work could work to solve the varying levels of bias found in the predictions on the NASA turbofan dataset.
 
 \pagebreak
 \section*{List of References}
@@ -150,15 +317,28 @@ The trained models were then used for inference on the validation dataset and co
 \renewcommand{\thepage}{R-\arabic{page}}
 \markboth{List of References}{} 
 \addcontentsline{toc}{section}{List of References}
+\printbibliography[heading=none]
+
+\pagebreak
+\section*{Appendix A - Breakdown of Contributions}
+\pagenumbering{arabic}
+\markboth{Appendix A - Breakdown of Contributions}{}
+\renewcommand{\thepage}{A-\arabic{page}}
+\addcontentsline{toc}{section}{Appendix A - Breakdown of Contributions}
+
+\textbf{LUNBERRY NOAH IWATA (N2503869H)} \\
+GAT code for breast cancer dataset. Results and Analysis writeup. \\
+
+\textbf{PIKERINGA ANTONINA DAILA (N2504101A)} \\
+GCN code for NASA Turbofan dataset. Results and Analysis writeup. \\
+
+\textbf{RAHLFS FREDERIC MAURITZ (N2504096K)} \\
+GAT code for NASA Turbofan dataset. Methods writeup. \\
+
+\textbf{SARAH EMILY ONG XIN WEI (U2440124G)} \\
+GCN code for breast cancer dataset. Abstract, Introduction and Conclusion writeup. \\
 
 \begin{comment}
-    \pagebreak
-    \section*{Appendix A - Heading}
-    \pagenumbering{arabic}
-    \markboth{Appendix A - Heading}{} 
-    \renewcommand{\thepage}{A-\arabic{page}}
-    \addcontentsline{toc}{section}{Appendix A - Heading}
-
     \pagebreak
     \section*{Appendix B - Heading}
     \pagenumbering{arabic}

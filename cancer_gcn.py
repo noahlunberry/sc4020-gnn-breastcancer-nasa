@@ -1,4 +1,4 @@
-# THIS IS VERY  COPY PASTA AN NOT REFINED YET!!!
+# THIS IS VERY COPY PASTA AN NOT REFINED YET!!!
 # ref: https://www.geeksforgeeks.org/deep-learning/graph-neural-networks-with-pytorch/
 
 import torch
@@ -12,12 +12,16 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import NearestNeighbors
+from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_score
+from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
+import matplotlib.pyplot as plt
+import os
 
 # =====================
 # Load Breast Cancer Data
 # =====================
 try:
-    df = pd.read_csv("breast-cancer.csv")  # downloaded Kaggle file
+    df = pd.read_csv("breast-cancer.csv")  # kaggle file
 except:
     from sklearn.datasets import load_breast_cancer
     bc = load_breast_cancer()
@@ -32,7 +36,7 @@ if "id" in df.columns:
 label_col = "diagnosis"
 y_raw = df[label_col].values
 if y_raw.dtype == object or y_raw.dtype == str:
-    y = LabelEncoder().fit_transform(y_raw)
+    y = LabelEncoder().fit_transform(y_raw)  # B->0, M->1 (typical)
 else:
     y = y_raw.astype(int)
 
@@ -43,8 +47,8 @@ X = StandardScaler().fit_transform(X).astype(np.float32)
 # =====================
 # Build Graph (k-NN)
 # =====================
-k = 8
-nbrs = NearestNeighbors(n_neighbors=k+1).fit(X)
+k = 8  # sarah used k=8
+nbrs = NearestNeighbors(n_neighbors=k + 1).fit(X)
 _, indices = nbrs.kneighbors(X)
 
 rows, cols = [], []
@@ -75,7 +79,7 @@ graph_data = Data(
     edge_index=edge_index,
     y=torch.tensor(y, dtype=torch.long),
     train_mask=train_mask,
-    test_mask=test_mask
+    test_mask=test_mask,
 )
 
 # =====================
@@ -83,7 +87,7 @@ graph_data = Data(
 # =====================
 class CustomGNN(torch.nn.Module):
     def __init__(self, input_dim, hidden_dim, output_dim):
-        super(CustomGNN, self).__init__()
+        super().__init__()
         self.layer1 = GCNConv(input_dim, hidden_dim)
         self.layer2 = GCNConv(hidden_dim, output_dim)
 
@@ -118,16 +122,31 @@ for epoch in range(1, 201):
         print(f"Epoch: {epoch:03d}, Loss: {loss_value:.4f}")
 
 # =====================
-# Evaluation
+# Evaluation + Confusion Matrix
 # =====================
-def evaluate_model():
-    model.eval()
-    with torch.no_grad():
-        out = model(graph_data.x, graph_data.edge_index)
-        preds = out.argmax(dim=1)
-        correct = (preds[graph_data.test_mask] == graph_data.y[graph_data.test_mask]).sum()
-        acc = int(correct) / int(graph_data.test_mask.sum())
-    return acc
+model.eval()
+with torch.no_grad():
+    out = model(graph_data.x, graph_data.edge_index)
 
-accuracy = evaluate_model()
+logits = out[graph_data.test_mask]
+probs = logits.softmax(dim=1)[:, 1].cpu().numpy()
+preds = logits.argmax(dim=1).cpu().numpy()
+labels = graph_data.y[graph_data.test_mask].cpu().numpy()
+
+# Metrics
+accuracy = (preds == labels).mean()
 print(f"Test Accuracy: {accuracy:.4f}")
+print("Precision:", precision_score(labels, preds))
+print("Recall:",    recall_score(labels, preds))
+print("F1:",        f1_score(labels, preds))
+print("ROC-AUC:",   roc_auc_score(labels, probs))
+
+# Confusion matrix (and save figure)
+cm = confusion_matrix(labels, preds)
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Benign", "Malignant"])
+disp.plot(cmap="Blues")
+plt.title("Breast Cancer – GCN Confusion Matrix")
+plt.tight_layout()
+
+os.makedirs("figures", exist_ok=True)
+plt.show()

@@ -1,0 +1,189 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{ynt/global//global/global}
+    \entry{zhouGraphNeuralNetworks2020}{article}{}
+      \name{author}{9}{}{%
+        {{hash=873b7b14d7a3c7290a8ad393066ee9a3}{%
+           family={Zhou},
+           familyi={Z\bibinitperiod},
+           given={Jie},
+           giveni={J\bibinitperiod}}}%
+        {{hash=85909d8a0dae0f58235434d6a4c3a425}{%
+           family={Cui},
+           familyi={C\bibinitperiod},
+           given={Ganqu},
+           giveni={G\bibinitperiod}}}%
+        {{hash=dbc192d3823d1022eb9ca28a4f81d27a}{%
+           family={Hu},
+           familyi={H\bibinitperiod},
+           given={Shengding},
+           giveni={S\bibinitperiod}}}%
+        {{hash=27c7fad66da172aaa64e08e3539ff172}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Zhengyan},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=29ccf7aa9391a3e9e13ba3b57f4c48eb}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Cheng},
+           giveni={C\bibinitperiod}}}%
+        {{hash=5b9a54b9d83697231299711961622ab8}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Zhiyuan},
+           giveni={Z\bibinitperiod}}}%
+        {{hash=b089f6bd0b31a94e61b42f89d966b1e1}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Lifeng},
+           giveni={L\bibinitperiod}}}%
+        {{hash=d35819f1b7580b5294fc7d3dc3d24550}{%
+           family={Li},
+           familyi={L\bibinitperiod},
+           given={Changcheng},
+           giveni={C\bibinitperiod}}}%
+        {{hash=faa6f5041a22004ca0dd547c03476790}{%
+           family={Sun},
+           familyi={S\bibinitperiod},
+           given={Maosong},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{aab8c253827d41d1eefde903ce53c74b}
+      \strng{fullhash}{26b43ae59077cc1dba8f7bd57dea2b48}
+      \strng{bibnamehash}{aab8c253827d41d1eefde903ce53c74b}
+      \strng{authorbibnamehash}{aab8c253827d41d1eefde903ce53c74b}
+      \strng{authornamehash}{aab8c253827d41d1eefde903ce53c74b}
+      \strng{authorfullhash}{26b43ae59077cc1dba8f7bd57dea2b48}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Lots of learning tasks require dealing with graph data which contains rich relation information among elements. Modeling physics systems, learning molecular fingerprints, predicting protein interface, and classifying diseases demand a model to learn from graph inputs. In other domains such as learning from non-structural data like texts and images, reasoning on extracted structures (like the dependency trees of sentences and the scene graphs of images) is an important research topic which also needs graph reasoning models. Graph neural networks (GNNs) are neural models that capture the dependence of graphs via message passing between the nodes of graphs. In recent years, variants of GNNs such as graph convolutional network (GCN), graph attention network (GAT), graph recurrent network (GRN) have demonstrated ground-breaking performances on many deep learning tasks. In this survey, we propose a general design pipeline for GNN models and discuss the variants of each component, systematically categorize the applications, and propose four open problems for future research.}
+      \field{issn}{2666-6510}
+      \field{journaltitle}{AI Open}
+      \field{month}{1}
+      \field{shorttitle}{Graph Neural Networks}
+      \field{title}{Graph Neural Networks: {{A}} Review of Methods and Applications}
+      \field{urlday}{9}
+      \field{urlmonth}{10}
+      \field{urlyear}{2025}
+      \field{volume}{1}
+      \field{year}{2020}
+      \field{urldateera}{ce}
+      \field{pages}{57\bibrangedash 81}
+      \range{pages}{25}
+      \verb{doi}
+      \verb 10.1016/j.aiopen.2021.01.001
+      \endverb
+      \verb{file}
+      \verb C\:\\Users\\sarah\\Zotero\\storage\\3WJP3FIH\\Zhou et al. - 2020 - Graph neural networks A review of methods and applications.pdf;C\:\\Users\\sarah\\Zotero\\storage\\2QSSN2ZQ\\S2666651021000012.html
+      \endverb
+      \keyw{Deep learning,Graph neural network}
+    \endentry
+    \entry{wuGraphNeuralNetworks2022}{book}{}
+      \name{editor}{4}{}{%
+        {{hash=bfb9e94811d001921a32bfdc17524596}{%
+           family={Wu},
+           familyi={W\bibinitperiod},
+           given={Lingfei},
+           giveni={L\bibinitperiod}}}%
+        {{hash=a79e6a0454388fc3ede42ca69f997534}{%
+           family={Cui},
+           familyi={C\bibinitperiod},
+           given={Peng},
+           giveni={P\bibinitperiod}}}%
+        {{hash=56af930e1f5e2c9a791b71e7b347c0ba}{%
+           family={Pei},
+           familyi={P\bibinitperiod},
+           given={Jian},
+           giveni={J\bibinitperiod}}}%
+        {{hash=1f1b5a611871b013dd18b84a54bbb23f}{%
+           family={Zhao},
+           familyi={Z\bibinitperiod},
+           given={Liang},
+           giveni={L\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Singapore}%
+      }
+      \list{publisher}{1}{%
+        {Springer Nature Singapore}%
+      }
+      \strng{namehash}{9dd13a14faf6ee842e607390d84b0614}
+      \strng{fullhash}{6b0f7d88001740508f489228f327258a}
+      \strng{bibnamehash}{6b0f7d88001740508f489228f327258a}
+      \strng{editorbibnamehash}{6b0f7d88001740508f489228f327258a}
+      \strng{editornamehash}{9dd13a14faf6ee842e607390d84b0614}
+      \strng{editorfullhash}{6b0f7d88001740508f489228f327258a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{editor}
+      \field{labeltitlesource}{shorttitle}
+      \field{isbn}{978-981-16-6053-5 978-981-16-6054-2}
+      \field{langid}{english}
+      \field{shorttitle}{Graph {{Neural Networks}}}
+      \field{title}{Graph {{Neural Networks}}: {{Foundations}}, {{Frontiers}}, and {{Applications}}}
+      \field{urlday}{9}
+      \field{urlmonth}{10}
+      \field{urlyear}{2025}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.1007/978-981-16-6054-2
+      \endverb
+    \endentry
+    \entry{nobleWhatGraphNeural2025}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=84dddce2b543764dfe3e36e567524dac}{%
+           family={Noble},
+           familyi={N\bibinitperiod},
+           given={Joshua},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{84dddce2b543764dfe3e36e567524dac}
+      \strng{fullhash}{84dddce2b543764dfe3e36e567524dac}
+      \strng{bibnamehash}{84dddce2b543764dfe3e36e567524dac}
+      \strng{authorbibnamehash}{84dddce2b543764dfe3e36e567524dac}
+      \strng{authornamehash}{84dddce2b543764dfe3e36e567524dac}
+      \strng{authorfullhash}{84dddce2b543764dfe3e36e567524dac}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Graph neural networks are a deep neural network architecture that represents data about entities and their relationships. They're useful for real-world data mining, understanding social networks, knowledge graphs, recommender systems and bioinformatics.}
+      \field{howpublished}{https://www.ibm.com/\allowbreak think/topics/graph-neural-network}
+      \field{langid}{english}
+      \field{month}{2}
+      \field{title}{What Is a {{Graph Neural Network}} {|} {{IBM}}}
+      \field{urlday}{9}
+      \field{urlmonth}{10}
+      \field{urlyear}{2025}
+      \field{year}{2025}
+      \field{urldateera}{ce}
+      \verb{file}
+      \verb C:\Users\sarah\Zotero\storage\U8WSC24W\graph-neural-network.html
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
