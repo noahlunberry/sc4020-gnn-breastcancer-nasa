@@ -20,3 +20,4 @@
 \contentsline {subsection}{\numberline {4.3}Comparison of GAT vs GCN across both datasets}{9}{subsection.4.3}%
 \contentsline {section}{\numberline {5}Conclusion}{10}{section.5}%
 \contentsline {section}{List of References}{R-1}{section.5}%
+\contentsline {section}{Appendix A - Breakdown of Contributions}{A-1}{section.5}%
