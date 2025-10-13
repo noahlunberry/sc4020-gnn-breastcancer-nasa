@@ -147,9 +147,9 @@ The trained models were then used for inference on the validation dataset and co
 \subsection{Breast cancer dataset}
 \subsubsection{GAT model}
 
-For the breast cancer dataset, I used a Graph Attention Network (GAT). Each patient was a node in the graph, and edges were made using the ten closest patients based on how similar their features were. The graph ended up with 569 nodes and 8,326 edges. I split it into 455 for training and 114 for testing.
+In the GAT model, each patient was a node in the graph, and edges were made using the ten closest patients based on how similar their features were. The graph ended up with 569 nodes and 8,326 edges. This was then split it into 455 for training and 114 for testing.
 
-The GAT had two attention layers with eight heads each. I trained it for 100 rounds using cross-entropy loss. The loss started around 0.23 and went down to about 0.11 by the end, which means the model was learning steady.
+The GAT had two attention layers with eight heads each, and the model was trained it for 100 rounds using cross-entropy loss. The loss started around 0.23 and went down to about 0.11 by the end, which means the model was learning steadily.
 
 \begin{table}[H]
 \centering
