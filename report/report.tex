@@ -151,6 +151,9 @@ In the GAT model, each patient was a node in the graph, and edges were made usin
 
 The GAT had two attention layers with eight heads each, and the model was trained it for 100 rounds using cross-entropy loss. The loss started around 0.23 and went down to about 0.11 by the end, which means the model was learning steadily.
 
+
+\autoref{table_results_breastcancer_GAT} shows the results of the GAT model on the breast cancer dataset, and \autoref{fig_breast_cancer_CM_GAT} - the confusion matrix. The amount of true positives and negatives is much higher than the respective false positives and negatives. The accuracy, precision, recall, and F1-score are also high.
+
 \begin{table}[H]
 \centering
 \caption{GAT results on breast cancer dataset}
@@ -165,14 +168,26 @@ F1-Score  & 0.9398 \\
 ROC-AUC   & 0.9944 \\
 \hline
 \end{tabular}
+\label{table_results_breastcancer_GAT}
 \end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/BreastCancer_GAT_CM.png}
+    \caption{Confusion matrix of GAT on the breast cancer dataset}
+    \label{fig_breast_cancer_CM_GAT}
+\end{figure}
+
 
 
 \subsubsection{GCN model}
 
+\autoref{table_results_breastcancer_GCN} shows the results of the GCN model on the breast cancer dataset, and \autoref{fig_breast_cancer_CM_GCN} - the confusion matrix. As with the GAT model, the GCN model has a much higher amount of true positives and negatives than the respective false positives and negatives. The accuracy, precision, recall, and F1-score are once again high.
+
+
 \begin{table}[H]
 \centering
-\caption{GCN results on breast cancer dataset}
+\caption{GCN results on the breast cancer dataset}
 \begin{tabular}{|l|c|}
 \hline
 \textbf{Metric} & \textbf{Score} \\
@@ -184,14 +199,19 @@ F1-Score  & 0.9383 \\
 ROC-AUC   & 0.9924 \\
 \hline
 \end{tabular}
-
+\label{table_results_breastcancer_GCN}
 \end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figures/BreastCancer_GCN_CM.png}
+    \caption{Confusion matrix of GCN on the breast cancer dataset}
+    \label{fig_breast_cancer_CM_GCN}
+\end{figure}
 
 \subsection{NASA turbofan jet engine dataset}
 
-\subsubsection{MSE error}
-
-\autoref{table_NASA_MSE} shows the MSE error of both the GCN and GAT models. The GCN and GAT models have approximately the same MSE error, differing by less than 0.1\%.
+Mean Squared Error (MSE) is a metric that measures the average of the squares of the differences between predicted values and true values. As such, it is a useful tool for evaluating regression results. \autoref{table_NASA_MSE} shows the MSE error of both the GCN and GAT models. The GCN and GAT models have approximately the same MSE error, differing by less than 0.1\%.
 
 \begin{table}[H]
 \centering
@@ -207,64 +227,81 @@ GAT & 1363.8159  \\
 \label{table_NASA_MSE}
 \end{table}
 
-\subsubsection{GCN model plots}
-The results of the GCN model on the NASA turbofan jet engine dataset vary: \autoref{fig_NASA_GCN_eng6} is an example of a good fit of data, with the predictions well aligned with the true values. Other than some small spikes in the data, the overall downward slope is roughly accurate. \autoref{fig_NASA_GCN_eng4} shows an example of slight bias, with the slope of the predicted values being mostly correct but all predicted values being shifted upwards of the actual values by the same amount. \autoref{fig_NASA_GCN_eng2} and \autoref{fig_NASA_GCN_eng3} show moderate and high levels of bias respectively. Again, the slope of the predicted values is mostly accurate, but all predicted values are vertically shifted from true values. Interestingly, the example with the most bias (\autoref{fig_NASA_GCN_eng3}) has a much smoother slope than the examples with less bias.
+In addition to calculating the MSE, the regression results must be visualized in order to better understand the performance of the plots. These are shown in \autoref{fig_GCN_GAT_NASA}. \autoref{subsubsection_gcnplotsNASA} and \autoref{subsubsection_gatplotsNASA} provide discussion of the plot behaviour of the GCN and GAT predictions.
 
 \begin{figure}[H]
     \centering
+    % Left minipage for GCN model
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{subcaptionbox}{Good fit\label{fig_NASA_GCN_eng6}}[1\linewidth]
+            {\includegraphics[width=\linewidth]{figures/NASA/NASA_GCN_eng6.png}}
+        \end{subcaptionbox}
 
-    \begin{subcaptionbox}{Good fit\label{fig_NASA_GCN_eng6}}[0.45\textwidth]
-        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GCN_eng6.png}}
-    \end{subcaptionbox}
+        \vspace{0.1cm}
+
+        \begin{subcaptionbox}{Slight bias\label{fig_NASA_GCN_eng4}}[1\linewidth]
+            {\includegraphics[width=\linewidth]{figures/NASA/NASA_GCN_eng4.png}}
+        \end{subcaptionbox}
+
+        \vspace{0.1cm}
+
+        \begin{subcaptionbox}{Moderate bias\label{fig_NASA_GCN_eng2}}[1\linewidth]
+            {\includegraphics[width=\linewidth]{figures/NASA/NASA_GCN_eng2.png}}
+        \end{subcaptionbox}
+
+        \vspace{0.1cm}
+
+        \begin{subcaptionbox}{High bias\label{fig_NASA_GCN_eng3}}[1\linewidth]
+            {\includegraphics[width=\linewidth]{figures/NASA/NASA_GCN_eng1.png}}
+        \end{subcaptionbox}
+
+        \caption*{GCN model on the NASA dataset}
+    \end{minipage}
     \hfill
-    \begin{subcaptionbox}{Slight bias\label{fig_NASA_GCN_eng4}}[0.45\textwidth]
-        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GCN_eng4.png}}
-    \end{subcaptionbox}
+    % Right minipage for GAT model
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{subcaptionbox}{Good fit\label{fig_NASA_GAT_eng6}}[1\linewidth]
+            {\includegraphics[width=\linewidth]{figures/NASA/NASA_GAT_eng7.png}}
+        \end{subcaptionbox}
 
-    \vspace{0.5cm}
+        \vspace{0.1cm}
 
-    \begin{subcaptionbox}{Moderate bias\label{fig_NASA_GCN_eng2}}[0.45\textwidth]
-        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GCN_eng2.png}}
-    \end{subcaptionbox}
-    \hfill
-    \begin{subcaptionbox}{High bias\label{fig_NASA_GCN_eng3}}[0.45\textwidth]
-        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GAT_eng3.png}}
-    \end{subcaptionbox}
+        \begin{subcaptionbox}{Slight bias\label{fig_NASA_GAT_eng4}}[1\linewidth]
+            {\includegraphics[width=\linewidth]{figures/NASA/NASA_GAT_eng6.png}}
+        \end{subcaptionbox}
 
-    \caption{GCN model on NASA data}
-    \label{GCN_NASA_all}
+        \vspace{0.1cm}
+
+        \begin{subcaptionbox}{Moderate bias\label{fig_NASA_GAT_eng2}}[1\linewidth]
+            {\includegraphics[width=\linewidth]{figures/NASA/NASA_GAT_eng1.png}}
+        \end{subcaptionbox}
+
+        \vspace{0.1cm}
+
+        \begin{subcaptionbox}{High bias\label{fig_NASA_GAT_eng3}}[1\linewidth]
+            {\includegraphics[width=\linewidth]{figures/NASA/NASA_GAT_eng3.png}}
+        \end{subcaptionbox}
+
+        \caption*{GAT model on the NASA dataset}
+    \end{minipage}
+
+    \caption{Comparison of GCN (left) and GAT (right) models on the NASA dataset}
+    \label{fig_GCN_GAT_NASA}
 \end{figure}
 
+\subsubsection{GCN model} \label{subsubsection_gcnplotsNASA}
+The results of the GCN model on the NASA turbofan jet engine dataset vary: \autoref{fig_NASA_GCN_eng6} is an example of a good fit of data, with the predictions well aligned with the true values. Other than some small spikes in the data, the overall downward slope is roughly accurate. \autoref{fig_NASA_GCN_eng4} shows an example of slight bias, with the slope of the predicted values being mostly correct but all predicted values being shifted upwards of the actual values by the same amount. \autoref{fig_NASA_GCN_eng2} and \autoref{fig_NASA_GCN_eng3} show moderate and high levels of bias respectively. Again, the slope of the predicted values is mostly accurate, but all predicted values are vertically shifted from true values. Interestingly, the example with the most bias (\autoref{fig_NASA_GCN_eng3}) has a much smoother slope than the examples with less bias.
 
-\subsubsection{GAT model plots}
+
+\subsubsection{GAT model} \label{subsubsection_gatplotsNASA}
 
 The results of the GAT model on the NASA turbofan jet engine dataset follow a similar trend those of the GCN model. Instances of good fits (\autoref{fig_NASA_GAT_eng6}), slight bias (\autoref{fig_NASA_GAT_eng4}), moderate bias (\autoref{fig_NASA_GAT_eng2}), and high bias (\autoref{fig_NASA_GAT_eng3}) can be found. The GAT model also has small spikes in the predicted values, but overall the slopes of the predicted values are accurate.
 
 
-\begin{figure}[H]
-    \centering
 
-    \begin{subcaptionbox}{Good fit\label{fig_NASA_GAT_eng6}}[0.45\textwidth]
-        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GAT_eng7.png}}
-    \end{subcaptionbox}
-    \hfill
-    \begin{subcaptionbox}{Slight bias\label{fig_NASA_GAT_eng4}}[0.45\textwidth]
-        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GAT_eng6.png}}
-    \end{subcaptionbox}
 
-    \vspace{0.5cm}
-
-    \begin{subcaptionbox}{Moderate bias\label{fig_NASA_GAT_eng2}}[0.45\textwidth]
-        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GAT_eng1.png}}
-    \end{subcaptionbox}
-    \hfill
-    \begin{subcaptionbox}{High bias\label{fig_NASA_GAT_eng3}}[0.45\textwidth]
-        {\includegraphics[width=\linewidth]{figures/NASA/NASA_GAT_eng3.png}}
-    \end{subcaptionbox}
-
-    \caption{GAT model on NASA data}
-    \label{GAT_NASA_all}
-\end{figure}
 
 
 \pagebreak
@@ -289,7 +326,7 @@ GCN & 0.9561 & 0.9744 & 0.9048 & 0.9383 & 0.9924 \\
 \end{table}
 
 \subsection{NASA Turbofan Jet Engine Dataset: GAT vs GCN}
-The GCN and GAT models have similar MSE errors (see \autoref{table_NASA_MSE}), indicating similar performance. This can be confirmed by analysing plots of the predicted RUL values against the true RUL values, as shown in \autoref{GCN_NASA_all} and \autoref{GAT_NASA_all}. While both models have small oscillations throughout their predicted values, the models capture the general downward trend of the RUL data quite successfully.
+The GCN and GAT models have similar MSE errors (see \autoref{table_NASA_MSE}), indicating similar performance. This can be confirmed by analysing plots of the predicted RUL values against the true RUL values, as shown in \autoref{fig_GCN_GAT_NASA}. While both models have small oscillations throughout their predicted values, the models capture the general downward trend of the RUL data quite successfully.
 
 Varying levels of bias can be seen in the predictions. In an attempt to explain this bias, the RUL values were normalised. This is because the range of RUL values in the datasets was large, with some engines having RULs in the range of 50, while others - 200. The cycle numbers can also range from ranges of 60 to ranges of 200. This makes it difficult for the models to predict precise values across all engines. Predictions display the least bias for the engines having RULs in the range of 200, and the most bias for those with RULs in the range 50. Unfortunately, the normalisation attempts the did not fix the bias, hence further investigation is required to solve this issue.
 
@@ -327,10 +364,10 @@ Additionally, future work could work to solve the varying levels of bias found i
 \addcontentsline{toc}{section}{Appendix A - Breakdown of Contributions}
 
 \textbf{LUNBERRY NOAH IWATA (N2503869H)} \\
-GAT code for breast cancer dataset. Results and Analysis writeup. \\
+GAT code for breast cancer dataset. Results and Analysis writeup for the breast cancer dataset. \\
 
 \textbf{PIKERINGA ANTONINA DAILA (N2504101A)} \\
-GCN code for NASA Turbofan dataset. Results and Analysis writeup. \\
+GCN code for NASA Turbofan dataset. Results and Analysis writeup for the NASA turbofan jet engine dataset. \\
 
 \textbf{RAHLFS FREDERIC MAURITZ (N2504096K)} \\
 GAT code for NASA Turbofan dataset. Methods writeup. \\
