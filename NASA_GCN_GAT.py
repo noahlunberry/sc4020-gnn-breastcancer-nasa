@@ -165,7 +165,7 @@ for engine_id in unique_engines:
     plt.plot(engine_data['time_cycles'], engine_data['predicted_RUL'], label='Predicted RUL', marker='x', color='xkcd:tomato')
     plt.xlabel('Cycle Number')
     plt.ylabel('Remaining Useful Life')
-    plt.title(f'Engine {engine_id}: GAT RUL Prediction')
+    plt.title(f'Engine {engine_id}: ' + model_type + ' RUL Prediction')
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
