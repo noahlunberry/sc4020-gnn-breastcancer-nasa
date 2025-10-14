@@ -9,15 +9,14 @@
 \contentsline {section}{\numberline {3}Results}{4}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Breast cancer dataset}{4}{subsection.3.1}%
 \contentsline {subsubsection}{\numberline {3.1.1}GAT model}{4}{subsubsection.3.1.1}%
-\contentsline {subsubsection}{\numberline {3.1.2}GCN model}{4}{subsubsection.3.1.2}%
-\contentsline {subsection}{\numberline {3.2}NASA turbofan jet engine dataset}{5}{subsection.3.2}%
-\contentsline {subsubsection}{\numberline {3.2.1}MSE error}{5}{subsubsection.3.2.1}%
-\contentsline {subsubsection}{\numberline {3.2.2}GCN model plots}{5}{subsubsection.3.2.2}%
-\contentsline {subsubsection}{\numberline {3.2.3}GAT model plots}{6}{subsubsection.3.2.3}%
-\contentsline {section}{\numberline {4}Analysis}{8}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Breast Cancer Dataset: GAT vs GCN}{8}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}NASA Turbofan Jet Engine Dataset: GAT vs GCN}{8}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Comparison of GAT vs GCN across both datasets}{9}{subsection.4.3}%
-\contentsline {section}{\numberline {5}Conclusion}{10}{section.5}%
+\contentsline {subsubsection}{\numberline {3.1.2}GCN model}{5}{subsubsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.2}NASA turbofan jet engine dataset}{6}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}GCN model}{8}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}GAT model}{8}{subsubsection.3.2.2}%
+\contentsline {section}{\numberline {4}Analysis}{9}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Breast Cancer Dataset: GAT vs GCN}{9}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}NASA Turbofan Jet Engine Dataset: GAT vs GCN}{9}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Comparison of GAT vs GCN across both datasets}{10}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Conclusion}{11}{section.5}%
 \contentsline {section}{List of References}{R-1}{section.5}%
 \contentsline {section}{Appendix A - Breakdown of Contributions}{A-1}{section.5}%
