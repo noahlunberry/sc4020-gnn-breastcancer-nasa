@@ -16,9 +16,7 @@ from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
 import matplotlib.pyplot as plt
 import os
 
-# =====================
-# Load Breast Cancer Data
-# =====================
+# load data
 try:
     df = pd.read_csv("breast-cancer.csv")  # kaggle file
 except:
@@ -27,11 +25,11 @@ except:
     df = pd.DataFrame(bc.data, columns=bc.feature_names)
     df["diagnosis"] = bc.target
 
-# Drop ID column if present
+# drop id column
 if "id" in df.columns:
     df = df.drop(columns=["id"])
 
-# Labels
+# labels
 label_col = "diagnosis"
 y_raw = df[label_col].values
 if y_raw.dtype == object or y_raw.dtype == str:
@@ -39,13 +37,11 @@ if y_raw.dtype == object or y_raw.dtype == str:
 else:
     y = y_raw.astype(int)
 
-# Features
+# features
 X = df.drop(columns=[label_col]).values
 X = StandardScaler().fit_transform(X).astype(np.float32)
 
-# =====================
-# Build Graph (k-NN)
-# =====================
+# build graph k-NN
 k = 8  # sarah used k=8
 nbrs = NearestNeighbors(n_neighbors=k + 1).fit(X)
 _, indices = nbrs.kneighbors(X)
@@ -59,9 +55,7 @@ for i in range(len(X)):
 edge_index = torch.tensor([rows, cols], dtype=torch.long)
 edge_index = to_undirected(edge_index)
 
-# =====================
-# Train/Test Masks
-# =====================
+# train/test
 idx = np.arange(len(X))
 train_idx, test_idx = train_test_split(idx, stratify=y, test_size=0.2, random_state=42)
 
@@ -70,9 +64,7 @@ test_mask = torch.zeros(len(X), dtype=torch.bool)
 train_mask[train_idx] = True
 test_mask[test_idx] = True
 
-# =====================
-# PyG Data object
-# =====================
+# pyg data obj
 graph_data = Data(
     x=torch.tensor(X, dtype=torch.float),
     edge_index=edge_index,
@@ -81,9 +73,7 @@ graph_data = Data(
     test_mask=test_mask,
 )
 
-# =====================
-# GCN Model
-# =====================
+#gcn model
 class CustomGNN(torch.nn.Module):
     def __init__(self, input_dim, hidden_dim, output_dim):
         super().__init__()
@@ -103,9 +93,7 @@ model = CustomGNN(input_features, 16, num_classes)
 
 optimizer = torch.optim.Adam(model.parameters(), lr=0.01, weight_decay=5e-4)
 
-# =====================
-# Training
-# =====================
+# training
 def train_model():
     model.train()
     optimizer.zero_grad()
@@ -120,9 +108,7 @@ for epoch in range(1, 201):
     if epoch % 20 == 0:
         print(f"Epoch: {epoch:03d}, Loss: {loss_value:.4f}")
 
-# =====================
-# Evaluation + Confusion Matrix
-# =====================
+# eval + conf mtrx
 model.eval()
 with torch.no_grad():
     out = model(graph_data.x, graph_data.edge_index)
@@ -132,7 +118,7 @@ probs = logits.softmax(dim=1)[:, 1].cpu().numpy()
 preds = logits.argmax(dim=1).cpu().numpy()
 labels = graph_data.y[graph_data.test_mask].cpu().numpy()
 
-# Metrics
+# metrics
 accuracy = (preds == labels).mean()
 print(f"Test Accuracy: {accuracy:.4f}")
 print("Precision:", precision_score(labels, preds))
@@ -140,7 +126,7 @@ print("Recall:",    recall_score(labels, preds))
 print("F1:",        f1_score(labels, preds))
 print("ROC-AUC:",   roc_auc_score(labels, probs))
 
-# Confusion matrix (and save figure)
+# conf mtrx + save fig
 cm = confusion_matrix(labels, preds)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Benign", "Malignant"])
 disp.plot(cmap="Blues")
