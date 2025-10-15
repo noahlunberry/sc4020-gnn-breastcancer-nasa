@@ -1,4 +1,3 @@
-# THIS IS VERY COPY PASTA AN NOT REFINED YET!!!
 # ref: https://www.geeksforgeeks.org/deep-learning/graph-neural-networks-with-pytorch/
 
 import torch
